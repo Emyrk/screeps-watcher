@@ -64,3 +64,4 @@ site/stats/
 # direnv
 .envrc
 .env
+config.yaml

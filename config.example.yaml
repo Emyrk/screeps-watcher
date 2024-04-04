@@ -1,0 +1,16 @@
+servers:
+  - name: Screeps.com
+    url: https://screeps.com
+    username: youremail@gmail.com
+    # Choose either a password OR a token. Not both
+    # password:
+    # token:
+    targets:
+        # Choose the shard and memory segment to scrape.
+        - segment: 77
+          shard: shard3
+    # Websockets can export logs and CPU usage per account.
+    # All shards are captured here.
+    websocket_channels:
+        - console
+        - cpu

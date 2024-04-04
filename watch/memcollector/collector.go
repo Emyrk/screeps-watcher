@@ -7,11 +7,13 @@ import (
 	"time"
 
 	"github.com/prometheus/client_golang/prometheus"
+	"github.com/rs/zerolog"
 )
 
 var _ prometheus.Collector = (*Collector)(nil)
 
 type Collector struct {
+	logger      zerolog.Logger
 	namespace   string
 	constLabels prometheus.Labels
 
@@ -21,8 +23,9 @@ type Collector struct {
 
 // New
 // labels are the label constants on all metrics.
-func New(namespace string, labels prometheus.Labels) *Collector {
+func New(logger zerolog.Logger, namespace string, labels prometheus.Labels) *Collector {
 	return &Collector{
+		logger:      logger,
 		namespace:   namespace,
 		constLabels: labels,
 		lastUpdated: prometheus.NewGauge(prometheus.GaugeOpts{
@@ -47,23 +50,29 @@ func (c *Collector) Collect(ch chan<- prometheus.Metric) {
 
 	for k, v := range *metrics {
 		for _, metric := range v {
-			labels := make([]string, 0)
+			descLabels := make([]string, 0)
+			labelValues := make([]string, 0)
 			for lk, lv := range metric.Labels {
-				labels = append(labels, lk, lv)
+				labelValues = append(labelValues, lv)
+				descLabels = append(descLabels, lk)
 			}
 			pm, err := prometheus.NewConstMetric(
 				prometheus.NewDesc(
 					fmt.Sprintf("%s_%s", c.namespace, k),
 					"Metric from screeps memory segment.",
-					nil,
+					descLabels,
 					c.constLabels,
 				),
 				prometheus.GaugeValue,
 				metric.Value,
-				labels...,
+				labelValues...,
 			)
 			if err != nil {
-				// Log?
+				c.logger.Warn().
+					Str("metric_name", k).
+					Strs("labels", labelValues).
+					Err(err).
+					Msg("failed to create metric")
 				continue
 			}
 			ch <- pm
@@ -73,13 +82,18 @@ func (c *Collector) Collect(ch chan<- prometheus.Metric) {
 	ch <- c.lastUpdated
 }
 
-func (c *Collector) SetMemory(memory json.RawMessage) error {
+func (c *Collector) SetMemory(memory json.RawMessage) (int, error) {
 	metrics, err := memoryMetrics(memory)
 	if err != nil {
-		return fmt.Errorf("read memory metrics: %w", err)
+		return 0, fmt.Errorf("read memory metrics: %w", err)
 	}
 
 	c.lastUpdated.Set(float64(time.Now().Unix()))
 	c.metrics.Store(&metrics)
-	return nil
+
+	count := 0
+	for _, v := range metrics {
+		count += len(v)
+	}
+	return count, nil
 }

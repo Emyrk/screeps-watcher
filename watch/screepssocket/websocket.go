@@ -6,6 +6,7 @@ import (
 	"encoding/hex"
 	"encoding/json"
 	"fmt"
+	"io"
 	"math/rand"
 	"net/http"
 	"net/url"
@@ -101,6 +102,10 @@ func (s *ScreepsWebsocket) MyUserID(ctx context.Context) (string, error) {
 		return "", fmt.Errorf("do me request: %w", err)
 	}
 	defer resp.Body.Close()
+
+	fmt.Println(req.URL.String())
+	d, _ := io.ReadAll(resp.Body)
+	fmt.Println(string(d))
 
 	var uinfo userInfo
 	err = json.NewDecoder(resp.Body).Decode(&uinfo)
