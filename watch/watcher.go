@@ -111,7 +111,11 @@ func New(opts WatcherOptions, logger zerolog.Logger) (*Watcher, error) {
 		tgt := &Target{
 			Shard:     t.Shard,
 			SegmentID: t.SegmentID,
-			collector: memcollector.New("screeps_memory", constantLabels),
+			collector: memcollector.New(logger.
+				With().
+				Str("username", t.Shard).
+				Str("shard", t.Shard).
+				Logger(), "screeps_memory", constantLabels),
 		}
 		tgts = append(tgts, tgt)
 		err := reg.Register(tgt.collector)
