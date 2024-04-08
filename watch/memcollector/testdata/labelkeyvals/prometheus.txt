@@ -1,0 +1,7 @@
+# HELP test_room_intents Metric from screeps memory segment.
+# TYPE test_room_intents gauge
+test_room_intents{intent="harvest",test="test"} 1
+test_room_intents{intent="upgrade",test="test"} 2
+# HELP test_watcher_last_updated_unix_s Timestamp in unix seconds of the last memory update.
+# TYPE test_watcher_last_updated_unix_s gauge
+test_watcher_last_updated_unix_s{test="test"} 1.6094592e+09

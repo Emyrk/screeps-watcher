@@ -1,0 +1,6 @@
+{
+  "room": {
+    "intents{intent=harvest}": 1,
+    "intents{intent=upgrade}": 2
+  }
+}
