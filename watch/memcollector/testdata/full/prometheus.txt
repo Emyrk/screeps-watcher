@@ -1,0 +1,192 @@
+# HELP test_cpu_bucket Metric from screeps memory segment.
+# TYPE test_cpu_bucket gauge
+test_cpu_bucket{test="test"} 3863
+# HELP test_cpu_getUsed Metric from screeps memory segment.
+# TYPE test_cpu_getUsed gauge
+test_cpu_getUsed{test="test"} 8.9892
+# HELP test_cpu_heapStatistics_does_zap_garbage Metric from screeps memory segment.
+# TYPE test_cpu_heapStatistics_does_zap_garbage gauge
+test_cpu_heapStatistics_does_zap_garbage{test="test"} 0
+# HELP test_cpu_heapStatistics_externally_allocated_size Metric from screeps memory segment.
+# TYPE test_cpu_heapStatistics_externally_allocated_size gauge
+test_cpu_heapStatistics_externally_allocated_size{test="test"} 3.9551926e+07
+# HELP test_cpu_heapStatistics_heap_size_limit Metric from screeps memory segment.
+# TYPE test_cpu_heapStatistics_heap_size_limit gauge
+test_cpu_heapStatistics_heap_size_limit{test="test"} 6.52562061e+08
+# HELP test_cpu_heapStatistics_malloced_memory Metric from screeps memory segment.
+# TYPE test_cpu_heapStatistics_malloced_memory gauge
+test_cpu_heapStatistics_malloced_memory{test="test"} 8192
+# HELP test_cpu_heapStatistics_peak_malloced_memory Metric from screeps memory segment.
+# TYPE test_cpu_heapStatistics_peak_malloced_memory gauge
+test_cpu_heapStatistics_peak_malloced_memory{test="test"} 2.834344e+06
+# HELP test_cpu_heapStatistics_total_available_size Metric from screeps memory segment.
+# TYPE test_cpu_heapStatistics_total_available_size gauge
+test_cpu_heapStatistics_total_available_size{test="test"} 6.06532072e+08
+# HELP test_cpu_heapStatistics_total_heap_size Metric from screeps memory segment.
+# TYPE test_cpu_heapStatistics_total_heap_size gauge
+test_cpu_heapStatistics_total_heap_size{test="test"} 6.453248e+07
+# HELP test_cpu_heapStatistics_total_heap_size_executable Metric from screeps memory segment.
+# TYPE test_cpu_heapStatistics_total_heap_size_executable gauge
+test_cpu_heapStatistics_total_heap_size_executable{test="test"} 2.62144e+06
+# HELP test_cpu_heapStatistics_total_physical_size Metric from screeps memory segment.
+# TYPE test_cpu_heapStatistics_total_physical_size gauge
+test_cpu_heapStatistics_total_physical_size{test="test"} 5.3944312e+07
+# HELP test_cpu_heapStatistics_used_heap_size Metric from screeps memory segment.
+# TYPE test_cpu_heapStatistics_used_heap_size gauge
+test_cpu_heapStatistics_used_heap_size{test="test"} 2.6717544e+07
+# HELP test_cpu_limit Metric from screeps memory segment.
+# TYPE test_cpu_limit gauge
+test_cpu_limit{test="test"} 20
+# HELP test_game_time Metric from screeps memory segment.
+# TYPE test_game_time gauge
+test_game_time{test="test"} 5.7139104e+07
+# HELP test_gcl_level Metric from screeps memory segment.
+# TYPE test_gcl_level gauge
+test_gcl_level{test="test"} 3
+# HELP test_gcl_progress Metric from screeps memory segment.
+# TYPE test_gcl_progress gauge
+test_gcl_progress{test="test"} 1.6899383569e+06
+# HELP test_gcl_progressTotal Metric from screeps memory segment.
+# TYPE test_gcl_progressTotal gauge
+test_gcl_progressTotal{test="test"} 8.6885785221e+06
+# HELP test_memory_used Metric from screeps memory segment.
+# TYPE test_memory_used gauge
+test_memory_used{test="test"} 44592
+# HELP test_promises_total_count Metric from screeps memory segment.
+# TYPE test_promises_total_count gauge
+test_promises_total_count{test="test"} 12
+# HELP test_room_controller_level Metric from screeps memory segment.
+# TYPE test_room_controller_level gauge
+test_room_controller_level{room="E11S53",test="test"} 6
+test_room_controller_level{room="E12S53",test="test"} 6
+# HELP test_room_controller_progress Metric from screeps memory segment.
+# TYPE test_room_controller_progress gauge
+test_room_controller_progress{room="E11S53",test="test"} 799770
+test_room_controller_progress{room="E12S53",test="test"} 2.5672e+06
+# HELP test_room_controller_progress_total Metric from screeps memory segment.
+# TYPE test_room_controller_progress_total gauge
+test_room_controller_progress_total{room="E11S53",test="test"} 3.645e+06
+test_room_controller_progress_total{room="E12S53",test="test"} 3.645e+06
+# HELP test_room_storage_energy Metric from screeps memory segment.
+# TYPE test_room_storage_energy gauge
+test_room_storage_energy{room="E11S53",test="test"} 99543
+test_room_storage_energy{room="E12S53",test="test"} 228442
+# HELP test_room_storage_free_total Metric from screeps memory segment.
+# TYPE test_room_storage_free_total gauge
+test_room_storage_free_total{room="E11S53",test="test"} 900457
+test_room_storage_free_total{room="E12S53",test="test"} 771558
+# HELP test_room_storage_used_total Metric from screeps memory segment.
+# TYPE test_room_storage_used_total gauge
+test_room_storage_used_total{room="E11S53",test="test"} 99543
+test_room_storage_used_total{room="E12S53",test="test"} 228442
+# HELP test_room_tick Metric from screeps memory segment.
+# TYPE test_room_tick gauge
+test_room_tick{room="E11S53",test="test"} 5.7139104e+07
+test_room_tick{room="E12S53",test="test"} 5.7139104e+07
+# HELP test_scheduler_process_cpu_full_avg Metric from screeps memory segment.
+# TYPE test_scheduler_process_cpu_full_avg gauge
+test_scheduler_process_cpu_full_avg{group="E11S53",label="E11S53_core",test="test",type="room-core"} 16.14
+test_scheduler_process_cpu_full_avg{group="E11S53",label="E11S53_crp_mgr",test="test",type="creep-manager"} 0.0736
+test_scheduler_process_cpu_full_avg{group="E11S53",label="E11S53_heap_logistics",test="test",type="heap-room-logistics"} 5.0566
+test_scheduler_process_cpu_full_avg{group="E11S53",label="E11S53_needs",test="test",type="room-needs"} 1.5002
+test_scheduler_process_cpu_full_avg{group="E11S53",label="E11S53_priority_manager",test="test",type="priority-manager"} 0.0828
+test_scheduler_process_cpu_full_avg{group="E11S53",label="E11S53_remote_harvest",test="test",type="room-remote-harvest"} 0.3573
+test_scheduler_process_cpu_full_avg{group="E11S53",label="E11S53_spawn",test="test",type="spawn-control"} 1.6125
+test_scheduler_process_cpu_full_avg{group="E11S53",label="E11S53_towers",test="test",type="tower-defense"} 0.1546
+test_scheduler_process_cpu_full_avg{group="E11S53",label="container_source",test="test",type="container-source"} 7.2549
+test_scheduler_process_cpu_full_avg{group="E11S53",label="creep_manager",test="test",type="creep-manager"} 0.1537
+test_scheduler_process_cpu_full_avg{group="E11S53",label="room_hauling",test="test",type="room-hauling"} 2.9058
+test_scheduler_process_cpu_full_avg{group="E12S53",label="E12S53_core",test="test",type="room-core"} 8.0989
+test_scheduler_process_cpu_full_avg{group="E12S53",label="E12S53_crp_mgr",test="test",type="creep-manager"} 0.0839
+test_scheduler_process_cpu_full_avg{group="E12S53",label="E12S53_heap_logistics",test="test",type="heap-room-logistics"} 3.1231
+test_scheduler_process_cpu_full_avg{group="E12S53",label="E12S53_needs",test="test",type="room-needs"} 1.7675
+test_scheduler_process_cpu_full_avg{group="E12S53",label="E12S53_priority_manager",test="test",type="priority-manager"} 0.0186
+test_scheduler_process_cpu_full_avg{group="E12S53",label="E12S53_remote_harvest",test="test",type="room-remote-harvest"} 0.71
+test_scheduler_process_cpu_full_avg{group="E12S53",label="E12S53_spawn",test="test",type="spawn-control"} 0.6705
+test_scheduler_process_cpu_full_avg{group="E12S53",label="E12S53_towers",test="test",type="tower-defense"} 0.0497
+test_scheduler_process_cpu_full_avg{group="E12S53",label="container_source",test="test",type="container-source"} 1.4537
+test_scheduler_process_cpu_full_avg{group="E12S53",label="creep_manager",test="test",type="creep-manager"} 0.0987
+test_scheduler_process_cpu_full_avg{group="E12S53",label="room_hauling",test="test",type="room-hauling"} 1.0697
+test_scheduler_process_cpu_full_avg{group="none",label="global_core",test="test",type="global-core"} 24.9183
+test_scheduler_process_cpu_full_avg{group="none",label="orphaned_creeps",test="test",type="orphaned_creeps"} 0.0381
+# HELP test_scheduler_process_cpu_full_total Metric from screeps memory segment.
+# TYPE test_scheduler_process_cpu_full_total gauge
+test_scheduler_process_cpu_full_total{group="E11S53",label="E11S53_core",test="test",type="room-core"} 132.0492
+test_scheduler_process_cpu_full_total{group="E11S53",label="E11S53_crp_mgr",test="test",type="creep-manager"} 2.2896
+test_scheduler_process_cpu_full_total{group="E11S53",label="E11S53_heap_logistics",test="test",type="heap-room-logistics"} 45.3507
+test_scheduler_process_cpu_full_total{group="E11S53",label="E11S53_needs",test="test",type="room-needs"} 4.792
+test_scheduler_process_cpu_full_total{group="E11S53",label="E11S53_priority_manager",test="test",type="priority-manager"} 0.719
+test_scheduler_process_cpu_full_total{group="E11S53",label="E11S53_remote_harvest",test="test",type="room-remote-harvest"} 5.3155
+test_scheduler_process_cpu_full_total{group="E11S53",label="E11S53_spawn",test="test",type="spawn-control"} 9.3308
+test_scheduler_process_cpu_full_total{group="E11S53",label="E11S53_towers",test="test",type="tower-defense"} 1.3726
+test_scheduler_process_cpu_full_total{group="E11S53",label="container_source",test="test",type="container-source"} 60.3849
+test_scheduler_process_cpu_full_total{group="E11S53",label="creep_manager",test="test",type="creep-manager"} 3.6722
+test_scheduler_process_cpu_full_total{group="E11S53",label="room_hauling",test="test",type="room-hauling"} 29.4214
+test_scheduler_process_cpu_full_total{group="E12S53",label="E12S53_core",test="test",type="room-core"} 174.4351
+test_scheduler_process_cpu_full_total{group="E12S53",label="E12S53_crp_mgr",test="test",type="creep-manager"} 3.0369
+test_scheduler_process_cpu_full_total{group="E12S53",label="E12S53_heap_logistics",test="test",type="heap-room-logistics"} 47.1502
+test_scheduler_process_cpu_full_total{group="E12S53",label="E12S53_needs",test="test",type="room-needs"} 7.0954
+test_scheduler_process_cpu_full_total{group="E12S53",label="E12S53_priority_manager",test="test",type="priority-manager"} 0.5862
+test_scheduler_process_cpu_full_total{group="E12S53",label="E12S53_remote_harvest",test="test",type="room-remote-harvest"} 12.287
+test_scheduler_process_cpu_full_total{group="E12S53",label="E12S53_spawn",test="test",type="spawn-control"} 15.2907
+test_scheduler_process_cpu_full_total{group="E12S53",label="E12S53_towers",test="test",type="tower-defense"} 1.9958
+test_scheduler_process_cpu_full_total{group="E12S53",label="container_source",test="test",type="container-source"} 42.9391
+test_scheduler_process_cpu_full_total{group="E12S53",label="creep_manager",test="test",type="creep-manager"} 3.6394
+test_scheduler_process_cpu_full_total{group="E12S53",label="room_hauling",test="test",type="room-hauling"} 24.2257
+test_scheduler_process_cpu_full_total{group="none",label="global_core",test="test",type="global-core"} 314.2296
+test_scheduler_process_cpu_full_total{group="none",label="orphaned_creeps",test="test",type="orphaned_creeps"} 0.3234
+# HELP test_scheduler_process_cpu_self_avg Metric from screeps memory segment.
+# TYPE test_scheduler_process_cpu_self_avg gauge
+test_scheduler_process_cpu_self_avg{group="E11S53",label="E11S53_core",test="test",type="room-core"} 0.783
+test_scheduler_process_cpu_self_avg{group="E11S53",label="E11S53_crp_mgr",test="test",type="creep-manager"} 0.0687
+test_scheduler_process_cpu_self_avg{group="E11S53",label="E11S53_heap_logistics",test="test",type="heap-room-logistics"} 0.3831
+test_scheduler_process_cpu_self_avg{group="E11S53",label="E11S53_needs",test="test",type="room-needs"} 1.4857
+test_scheduler_process_cpu_self_avg{group="E11S53",label="E11S53_priority_manager",test="test",type="priority-manager"} 0.0699
+test_scheduler_process_cpu_self_avg{group="E11S53",label="E11S53_remote_harvest",test="test",type="room-remote-harvest"} 0.2429
+test_scheduler_process_cpu_self_avg{group="E11S53",label="E11S53_spawn",test="test",type="spawn-control"} 1.5878
+test_scheduler_process_cpu_self_avg{group="E11S53",label="E11S53_towers",test="test",type="tower-defense"} 0.1433
+test_scheduler_process_cpu_self_avg{group="E11S53",label="container_source",test="test",type="container-source"} 1.0902
+test_scheduler_process_cpu_self_avg{group="E11S53",label="creep_manager",test="test",type="creep-manager"} 0.1494
+test_scheduler_process_cpu_self_avg{group="E11S53",label="room_hauling",test="test",type="room-hauling"} 0.4585
+test_scheduler_process_cpu_self_avg{group="E12S53",label="E12S53_core",test="test",type="room-core"} 0.1211
+test_scheduler_process_cpu_self_avg{group="E12S53",label="E12S53_crp_mgr",test="test",type="creep-manager"} 0.0799
+test_scheduler_process_cpu_self_avg{group="E12S53",label="E12S53_heap_logistics",test="test",type="heap-room-logistics"} 0.1979
+test_scheduler_process_cpu_self_avg{group="E12S53",label="E12S53_needs",test="test",type="room-needs"} 1.7623
+test_scheduler_process_cpu_self_avg{group="E12S53",label="E12S53_priority_manager",test="test",type="priority-manager"} 0.0152
+test_scheduler_process_cpu_self_avg{group="E12S53",label="E12S53_remote_harvest",test="test",type="room-remote-harvest"} 0.603
+test_scheduler_process_cpu_self_avg{group="E12S53",label="E12S53_spawn",test="test",type="spawn-control"} 0.6641
+test_scheduler_process_cpu_self_avg{group="E12S53",label="E12S53_towers",test="test",type="tower-defense"} 0.0435
+test_scheduler_process_cpu_self_avg{group="E12S53",label="container_source",test="test",type="container-source"} 0.2203
+test_scheduler_process_cpu_self_avg{group="E12S53",label="creep_manager",test="test",type="creep-manager"} 0.095
+test_scheduler_process_cpu_self_avg{group="E12S53",label="room_hauling",test="test",type="room-hauling"} 0.087
+test_scheduler_process_cpu_self_avg{group="none",label="global_core",test="test",type="global-core"} 0.5242
+test_scheduler_process_cpu_self_avg{group="none",label="orphaned_creeps",test="test",type="orphaned_creeps"} 0.0256
+# HELP test_scheduler_process_cpu_self_total Metric from screeps memory segment.
+# TYPE test_scheduler_process_cpu_self_total gauge
+test_scheduler_process_cpu_self_total{group="E11S53",label="E11S53_core",test="test",type="room-core"} 5.0333
+test_scheduler_process_cpu_self_total{group="E11S53",label="E11S53_crp_mgr",test="test",type="creep-manager"} 2.1464
+test_scheduler_process_cpu_self_total{group="E11S53",label="E11S53_heap_logistics",test="test",type="heap-room-logistics"} 7.9461
+test_scheduler_process_cpu_self_total{group="E11S53",label="E11S53_needs",test="test",type="room-needs"} 4.6298
+test_scheduler_process_cpu_self_total{group="E11S53",label="E11S53_priority_manager",test="test",type="priority-manager"} 0.5442
+test_scheduler_process_cpu_self_total{group="E11S53",label="E11S53_remote_harvest",test="test",type="room-remote-harvest"} 1.2904
+test_scheduler_process_cpu_self_total{group="E11S53",label="E11S53_spawn",test="test",type="spawn-control"} 9.0845
+test_scheduler_process_cpu_self_total{group="E11S53",label="E11S53_towers",test="test",type="tower-defense"} 1.178
+test_scheduler_process_cpu_self_total{group="E11S53",label="container_source",test="test",type="container-source"} 9.5996
+test_scheduler_process_cpu_self_total{group="E11S53",label="creep_manager",test="test",type="creep-manager"} 3.5338
+test_scheduler_process_cpu_self_total{group="E11S53",label="room_hauling",test="test",type="room-hauling"} 4.8572
+test_scheduler_process_cpu_self_total{group="E12S53",label="E12S53_core",test="test",type="room-core"} 2.331
+test_scheduler_process_cpu_self_total{group="E12S53",label="E12S53_crp_mgr",test="test",type="creep-manager"} 2.8892
+test_scheduler_process_cpu_self_total{group="E12S53",label="E12S53_heap_logistics",test="test",type="heap-room-logistics"} 12.9471
+test_scheduler_process_cpu_self_total{group="E12S53",label="E12S53_needs",test="test",type="room-needs"} 6.9696
+test_scheduler_process_cpu_self_total{group="E12S53",label="E12S53_priority_manager",test="test",type="priority-manager"} 0.4702
+test_scheduler_process_cpu_self_total{group="E12S53",label="E12S53_remote_harvest",test="test",type="room-remote-harvest"} 8.4023
+test_scheduler_process_cpu_self_total{group="E12S53",label="E12S53_spawn",test="test",type="spawn-control"} 15.1415
+test_scheduler_process_cpu_self_total{group="E12S53",label="E12S53_towers",test="test",type="tower-defense"} 1.8084
+test_scheduler_process_cpu_self_total{group="E12S53",label="container_source",test="test",type="container-source"} 7.9677
+test_scheduler_process_cpu_self_total{group="E12S53",label="creep_manager",test="test",type="creep-manager"} 3.5208
+test_scheduler_process_cpu_self_total{group="E12S53",label="room_hauling",test="test",type="room-hauling"} 4.6118
+test_scheduler_process_cpu_self_total{group="none",label="global_core",test="test",type="global-core"} 5.981
+test_scheduler_process_cpu_self_total{group="none",label="orphaned_creeps",test="test",type="orphaned_creeps"} 0.1508
+# HELP test_watcher_last_updated_unix_s Timestamp in unix seconds of the last memory update.
+# TYPE test_watcher_last_updated_unix_s gauge
+test_watcher_last_updated_unix_s{test="test"} 1.6094592e+09

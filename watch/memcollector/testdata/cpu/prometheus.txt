@@ -1,0 +1,36 @@
+# HELP test_cpu_heap_statistics_does_zap_garbage Metric from screeps memory segment.
+# TYPE test_cpu_heap_statistics_does_zap_garbage gauge
+test_cpu_heap_statistics_does_zap_garbage{test="test"} 0
+# HELP test_cpu_heap_statistics_externally_allocated_size Metric from screeps memory segment.
+# TYPE test_cpu_heap_statistics_externally_allocated_size gauge
+test_cpu_heap_statistics_externally_allocated_size{test="test"} 100
+# HELP test_cpu_heap_statistics_heap_size_limit Metric from screeps memory segment.
+# TYPE test_cpu_heap_statistics_heap_size_limit gauge
+test_cpu_heap_statistics_heap_size_limit{test="test"} 100
+# HELP test_cpu_heap_statistics_malloced_memory Metric from screeps memory segment.
+# TYPE test_cpu_heap_statistics_malloced_memory gauge
+test_cpu_heap_statistics_malloced_memory{test="test"} 100
+# HELP test_cpu_heap_statistics_peak_malloced_memory Metric from screeps memory segment.
+# TYPE test_cpu_heap_statistics_peak_malloced_memory gauge
+test_cpu_heap_statistics_peak_malloced_memory{test="test"} 100
+# HELP test_cpu_heap_statistics_total_available_size Metric from screeps memory segment.
+# TYPE test_cpu_heap_statistics_total_available_size gauge
+test_cpu_heap_statistics_total_available_size{test="test"} 100
+# HELP test_cpu_heap_statistics_total_heap_size Metric from screeps memory segment.
+# TYPE test_cpu_heap_statistics_total_heap_size gauge
+test_cpu_heap_statistics_total_heap_size{test="test"} 100
+# HELP test_cpu_heap_statistics_total_heap_size_executable Metric from screeps memory segment.
+# TYPE test_cpu_heap_statistics_total_heap_size_executable gauge
+test_cpu_heap_statistics_total_heap_size_executable{test="test"} 100
+# HELP test_cpu_heap_statistics_total_physical_size Metric from screeps memory segment.
+# TYPE test_cpu_heap_statistics_total_physical_size gauge
+test_cpu_heap_statistics_total_physical_size{test="test"} 100
+# HELP test_cpu_heap_statistics_used_heap_size Metric from screeps memory segment.
+# TYPE test_cpu_heap_statistics_used_heap_size gauge
+test_cpu_heap_statistics_used_heap_size{test="test"} 100
+# HELP test_cpu_limit Metric from screeps memory segment.
+# TYPE test_cpu_limit gauge
+test_cpu_limit{test="test"} 10000
+# HELP test_watcher_last_updated_unix_s Timestamp in unix seconds of the last memory update.
+# TYPE test_watcher_last_updated_unix_s gauge
+test_watcher_last_updated_unix_s{test="test"} 1.6094592e+09

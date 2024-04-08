@@ -3,6 +3,7 @@ package memcollector
 import (
 	"encoding/json"
 	"fmt"
+	"math"
 	"sync/atomic"
 	"time"
 
@@ -19,6 +20,7 @@ type Collector struct {
 
 	lastUpdated prometheus.Gauge
 	metrics     atomic.Pointer[map[string][]prometheusMetric]
+	now         func() time.Time
 }
 
 // New
@@ -28,6 +30,7 @@ func New(logger zerolog.Logger, namespace string, labels prometheus.Labels) *Col
 		logger:      logger,
 		namespace:   namespace,
 		constLabels: labels,
+		now:         time.Now,
 		lastUpdated: prometheus.NewGauge(prometheus.GaugeOpts{
 			Namespace:   namespace,
 			Subsystem:   "watcher",
@@ -36,6 +39,10 @@ func New(logger zerolog.Logger, namespace string, labels prometheus.Labels) *Col
 			ConstLabels: labels,
 		}),
 	}
+}
+
+func (c *Collector) SetNow(f func() time.Time) {
+	c.now = f
 }
 
 func (c *Collector) Describe(descs chan<- *prometheus.Desc) {
@@ -56,6 +63,9 @@ func (c *Collector) Collect(ch chan<- prometheus.Metric) {
 				labelValues = append(labelValues, lv)
 				descLabels = append(descLabels, lk)
 			}
+
+			// Truncating to get consistency for tests.
+			value := math.Trunc(metric.Value*10000) / 10000
 			pm, err := prometheus.NewConstMetric(
 				prometheus.NewDesc(
 					fmt.Sprintf("%s_%s", c.namespace, k),
@@ -64,7 +74,7 @@ func (c *Collector) Collect(ch chan<- prometheus.Metric) {
 					c.constLabels,
 				),
 				prometheus.GaugeValue,
-				metric.Value,
+				value,
 				labelValues...,
 			)
 			if err != nil {
@@ -88,7 +98,7 @@ func (c *Collector) SetMemory(memory json.RawMessage) (int, error) {
 		return 0, fmt.Errorf("read memory metrics: %w", err)
 	}
 
-	c.lastUpdated.Set(float64(time.Now().Unix()))
+	c.lastUpdated.Set(float64(c.now().Unix()))
 	c.metrics.Store(&metrics)
 
 	count := 0

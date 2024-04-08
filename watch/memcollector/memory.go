@@ -38,10 +38,13 @@ var labels, _ = regexp.Compile(`\{[^}]*\}`)
 
 func next(src map[string][]prometheusMetric, parent string, data map[string]interface{}) {
 	for k, v := range data {
+		// Create the parent metric name with all their labels.
+		parent = strings.ReplaceAll(parent, ".", "_")
+		metricName := fmt.Sprintf("%s_%s", parent, k)
 		var value float64
 		switch v := v.(type) {
 		case map[string]interface{}:
-			next(src, k, v)
+			next(src, metricName, v)
 			continue
 		case int:
 			value = float64(v)
@@ -54,8 +57,6 @@ func next(src map[string][]prometheusMetric, parent string, data map[string]inte
 		case float64:
 			value = v
 		}
-		parent = strings.ReplaceAll(parent, ".", "_")
-		metricName := fmt.Sprintf("%s_%s", parent, k)
 		rawLabels := labels.FindString(metricName)
 		rawLabels = strings.Trim(rawLabels, "{}")
 		metricName = labels.ReplaceAllString(metricName, "")
