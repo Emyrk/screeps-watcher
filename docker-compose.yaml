@@ -57,7 +57,22 @@ services:
       - "3100:3100"
     command: -config.file=/etc/loki/local-config.yaml
 
+  # Pyroscope is for flamechart profiling
+  # TODO: This is not yet implemented. It is something I want to look into.
+#  pyroscope:
+#    hostname: pyroscope
+#    container_name: pyroscope
+#    image: "pyroscope/pyroscope:latest"
+#    ports:
+#      - "4040:4040"
+#    command:
+#      - "server"
+#    volumes:
+#      - ./configs/pyroscope.yaml:/etc/pyroscope/server.yaml
+#      - pyroscope_data:/var/lib/pyroscope
+
   # TODO: Add grafana here? I use my own grafana instance, but should
   # probably just bundle it in.
 volumes:
   prometheus_data:
+  pyroscope_data:
