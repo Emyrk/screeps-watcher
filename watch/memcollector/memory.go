@@ -36,6 +36,13 @@ type prometheusMetric struct {
 
 var labels, _ = regexp.Compile(`\{[^}]*\}`)
 
+// next recursively walks the JSON data and extracts all the metrics.
+// One decision made is that the metric name will have all its labels at the
+// final recursion level. An alternative would be to parse them, and pass the
+// parsed labels down the recursion chain. That would be more efficient, but
+// this was easier to debug with all the data in one place.
+// And this scrape interval is infrequent, so the performance hit does
+// not matter.
 func next(src map[string][]prometheusMetric, parent string, data map[string]interface{}) {
 	for k, v := range data {
 		// Create the parent metric name with all their labels.

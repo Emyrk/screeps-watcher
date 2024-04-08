@@ -1,0 +1,3 @@
+# HELP test_watcher_last_updated_unix_s Timestamp in unix seconds of the last memory update.
+# TYPE test_watcher_last_updated_unix_s gauge
+test_watcher_last_updated_unix_s{test="test"} 1.6094592e+09
