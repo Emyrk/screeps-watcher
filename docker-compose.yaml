@@ -1,0 +1,63 @@
+version: '3'
+services:
+  # watcher will make api calls to screeps, and expose the data
+  # to the various data exporters.
+  watcher:
+    container_name: screeps-watcher
+    image: emyrk/screeps-watcher
+    volumes:
+      - ./config.yaml:/etc/screeps/config.yaml
+    labels:
+      logging: "promtail"
+      logging_jobname: "screeps-watcher"
+    restart: always
+    ports:
+      # Prometheus' metrics are aggregated and served here.
+      - 2112:2112
+    expose:
+      - 2112
+
+
+  prometheus:
+    container_name: screeps-prometheus
+    image: prom/prometheus
+    volumes:
+      - ./configs/:/etc/prometheus/
+      - prometheus_data:/prometheus
+    command:
+      - '--config.file=/etc/prometheus/prometheus.yaml'
+      - '--storage.tsdb.path=/prometheus'
+      - '--web.console.libraries=/usr/share/prometheus/console_libraries'
+      - '--web.console.templates=/usr/share/prometheus/consoles'
+    ports:
+      - 9090:9090
+    restart: always
+    expose:
+      - 9090
+
+  # promtail is for pushing logs to Loki
+  promtail:
+    image:  grafana/promtail:latest
+    container_name: promtail
+    volumes:
+      - ./configs/promtail.yaml:/etc/promtail/docker-config.yaml
+      - /var/lib/docker/containers:/var/lib/docker/containers:ro
+      - /var/run/docker.sock:/var/run/docker.sock
+    command: -config.file=/etc/promtail/docker-config.yaml
+    privileged: true
+    depends_on:
+      - loki
+    ports:
+      - 9080:9080
+
+  # Loki stores all the logs for Grafana
+  loki:
+    image: grafana/loki:2.9.2
+    ports:
+      - "3100:3100"
+    command: -config.file=/etc/loki/local-config.yaml
+
+  # TODO: Add grafana here? I use my own grafana instance, but should
+  # probably just bundle it in.
+volumes:
+  prometheus_data:
