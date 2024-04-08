@@ -1,6 +1,6 @@
 # Screeps Watcher
 
-[!Example](./images/grafana_example.png)
+![Example](./images/grafana_example.png)
 
 - [Demo](https://snapshots.raintank.io/dashboard/snapshot/Mk6wQM764uJKnMINsHduIrIrDtKUqO4I?orgId=0)
 
