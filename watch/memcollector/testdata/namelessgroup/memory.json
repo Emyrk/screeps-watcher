@@ -1,0 +1,11 @@
+{
+  "room": {
+    "{shard=3}": {
+      "{room=E11S53}": {
+        "controller{owner=me}": {
+          "level": 100
+        }
+      }
+    }
+  }
+}

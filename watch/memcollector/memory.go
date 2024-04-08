@@ -35,6 +35,7 @@ type prometheusMetric struct {
 }
 
 var labels, _ = regexp.Compile(`\{[^}]*\}`)
+var repeatedUnderscores, _ = regexp.Compile(`_+`)
 
 // next recursively walks the JSON data and extracts all the metrics.
 // One decision made is that the metric name will have all its labels at the
@@ -87,6 +88,9 @@ func next(src map[string][]prometheusMetric, parent string, data map[string]inte
 			}
 			labels[parts[0]] = parts[1]
 		}
+
+		// Clean up any repeated underscores from nameless groups.
+		metricName = repeatedUnderscores.ReplaceAllString(metricName, "_")
 		src[metricName] = append(src[metricName], prometheusMetric{
 			Labels: labels,
 			Value:  value,
