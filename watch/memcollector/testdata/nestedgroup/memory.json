@@ -1,1 +1,9 @@
-{"global{foo=bar}":{"room{room=E11S53}":{"controller{owner=me}":{"level":100}}}}
+{
+  "global{foo=bar}": {
+    "room{room=E11S53}": {
+      "controller{owner=me}": {
+        "level": 100
+      }
+    }
+  }
+}

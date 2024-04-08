@@ -1,7 +1,9 @@
 package memcollector_test
 
 import (
+	"bytes"
 	"context"
+	"encoding/json"
 	"flag"
 	"fmt"
 	"io"
@@ -72,7 +74,11 @@ func TestGoldenFiles(t *testing.T) {
 				err := os.WriteFile(prom, []byte(found), 0644)
 				require.NoError(t, err)
 
-				os.WriteFile(memory)
+				var pretty bytes.Buffer
+				err = json.Indent(&pretty, memoryJSON, "", "  ")
+				if err == nil {
+					_ = os.WriteFile(memory, pretty.Bytes(), 0644)
+				}
 			} else {
 				if !assert.Equal(t, string(promData), found) {
 					t.Logf("Found:\n%s\n", found)

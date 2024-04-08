@@ -1,6 +1,6 @@
 # HELP test_global_room_controller_level Metric from screeps memory segment.
 # TYPE test_global_room_controller_level gauge
-test_global_room_controller_level{foo="bar",test="test"} 100
+test_global_room_controller_level{foo="bar",owner="me",room="E11S53",test="test"} 100
 # HELP test_watcher_last_updated_unix_s Timestamp in unix seconds of the last memory update.
 # TYPE test_watcher_last_updated_unix_s gauge
 test_watcher_last_updated_unix_s{test="test"} 1.6094592e+09

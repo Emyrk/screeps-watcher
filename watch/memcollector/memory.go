@@ -57,13 +57,23 @@ func next(src map[string][]prometheusMetric, parent string, data map[string]inte
 		case float64:
 			value = v
 		}
-		rawLabels := labels.FindString(metricName)
-		rawLabels = strings.Trim(rawLabels, "{}")
+		// Each metric level can have labels.
+		// So find all the labels and remove them from the metric name.
+		rawLabels := labels.FindAllString(metricName, -1)
+		// Remove the labels from the metric name.
 		metricName = labels.ReplaceAllString(metricName, "")
 
+		// handle extracted labels
+		labelList := make([]string, 0, len(rawLabels))
+		for _, labels := range rawLabels {
+			// Get it down to just the key=value pairs.
+			labels = strings.Trim(labels, "{}")
+			// Append key=value pairs to the list.
+			labelList = append(labelList, strings.Split(labels, ",")...)
+		}
+
 		labels := make(map[string]string)
-		list := strings.Split(rawLabels, ",")
-		for _, l := range list {
+		for _, l := range labelList {
 			parts := strings.Split(l, "=")
 			if len(parts) != 2 {
 				continue

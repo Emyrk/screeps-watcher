@@ -1,197 +1,197 @@
 {
-  "room{room=E11S53}":{
-    "tick":57139104,
-    "controller_level":6,
-    "controller_progress":799770,
-    "controller_progress_total":3645000,
-    "storage_energy":99543,
-    "storage_used_total":99543,
-    "storage_free_total":900457
+  "room{room=E11S53}": {
+    "tick": 57139104,
+    "controller_level": 6,
+    "controller_progress": 799770,
+    "controller_progress_total": 3645000,
+    "storage_energy": 99543,
+    "storage_used_total": 99543,
+    "storage_free_total": 900457
   },
-  "scheduler":{
-    "process_cpu{type=spawn-control,label=E11S53_spawn,group=E11S53}":{
-      "self_avg":1.58783,
-      "self_total":9.08456,
-      "full_avg":1.61257,
-      "full_total":9.33086
+  "scheduler": {
+    "process_cpu{type=spawn-control,label=E11S53_spawn,group=E11S53}": {
+      "self_avg": 1.58783,
+      "self_total": 9.08456,
+      "full_avg": 1.61257,
+      "full_total": 9.33086
     },
-    "process_cpu{type=creep-manager,label=creep_manager,group=E11S53}":{
-      "self_avg":0.14942,
-      "self_total":3.53389,
-      "full_avg":0.15376,
-      "full_total":3.67225
+    "process_cpu{type=creep-manager,label=creep_manager,group=E11S53}": {
+      "self_avg": 0.14942,
+      "self_total": 3.53389,
+      "full_avg": 0.15376,
+      "full_total": 3.67225
     },
-    "process_cpu{type=container-source,label=container_source,group=E11S53}":{
-      "self_avg":1.09022,
-      "self_total":9.59961,
-      "full_avg":7.25495,
-      "full_total":60.38498
+    "process_cpu{type=container-source,label=container_source,group=E11S53}": {
+      "self_avg": 1.09022,
+      "self_total": 9.59961,
+      "full_avg": 7.25495,
+      "full_total": 60.38498
     },
-    "process_cpu{type=priority-manager,label=E11S53_priority_manager,group=E11S53}":{
-      "self_avg":0.06993,
-      "self_total":0.54427,
-      "full_avg":0.08281,
-      "full_total":0.71904
+    "process_cpu{type=priority-manager,label=E11S53_priority_manager,group=E11S53}": {
+      "self_avg": 0.06993,
+      "self_total": 0.54427,
+      "full_avg": 0.08281,
+      "full_total": 0.71904
     },
-    "process_cpu{type=room-needs,label=E11S53_needs,group=E11S53}":{
-      "self_avg":1.48577,
-      "self_total":4.62985,
-      "full_avg":1.50022,
-      "full_total":4.79205
+    "process_cpu{type=room-needs,label=E11S53_needs,group=E11S53}": {
+      "self_avg": 1.48577,
+      "self_total": 4.62985,
+      "full_avg": 1.50022,
+      "full_total": 4.79205
     },
-    "process_cpu{type=room-hauling,label=room_hauling,group=E11S53}":{
-      "self_avg":0.4585,
-      "self_total":4.85724,
-      "full_avg":2.90584,
-      "full_total":29.42144
+    "process_cpu{type=room-hauling,label=room_hauling,group=E11S53}": {
+      "self_avg": 0.4585,
+      "self_total": 4.85724,
+      "full_avg": 2.90584,
+      "full_total": 29.42144
     },
-    "process_cpu{type=heap-room-logistics,label=E11S53_heap_logistics,group=E11S53}":{
-      "self_avg":0.38318,
-      "self_total":7.94618,
-      "full_avg":5.05666,
-      "full_total":45.35072
+    "process_cpu{type=heap-room-logistics,label=E11S53_heap_logistics,group=E11S53}": {
+      "self_avg": 0.38318,
+      "self_total": 7.94618,
+      "full_avg": 5.05666,
+      "full_total": 45.35072
     },
-    "process_cpu{type=tower-defense,label=E11S53_towers,group=E11S53}":{
-      "self_avg":0.14337,
-      "self_total":1.17801,
-      "full_avg":0.15467,
-      "full_total":1.37263
+    "process_cpu{type=tower-defense,label=E11S53_towers,group=E11S53}": {
+      "self_avg": 0.14337,
+      "self_total": 1.17801,
+      "full_avg": 0.15467,
+      "full_total": 1.37263
     },
-    "process_cpu{type=creep-manager,label=E11S53_crp_mgr,group=E11S53}":{
-      "self_avg":0.06874,
-      "self_total":2.14641,
-      "full_avg":0.07365,
-      "full_total":2.28964
+    "process_cpu{type=creep-manager,label=E11S53_crp_mgr,group=E11S53}": {
+      "self_avg": 0.06874,
+      "self_total": 2.14641,
+      "full_avg": 0.07365,
+      "full_total": 2.28964
     },
-    "process_cpu{type=room-remote-harvest,label=E11S53_remote_harvest,group=E11S53}":{
-      "self_avg":0.24295,
-      "self_total":1.29046,
-      "full_avg":0.35733,
-      "full_total":5.31557
+    "process_cpu{type=room-remote-harvest,label=E11S53_remote_harvest,group=E11S53}": {
+      "self_avg": 0.24295,
+      "self_total": 1.29046,
+      "full_avg": 0.35733,
+      "full_total": 5.31557
     },
-    "process_cpu{type=room-core,label=E11S53_core,group=E11S53}":{
-      "self_avg":0.78305,
-      "self_total":5.03336,
-      "full_avg":16.14001,
-      "full_total":132.04925
+    "process_cpu{type=room-core,label=E11S53_core,group=E11S53}": {
+      "self_avg": 0.78305,
+      "self_total": 5.03336,
+      "full_avg": 16.14001,
+      "full_total": 132.04925
     },
-    "process_cpu{type=spawn-control,label=E12S53_spawn,group=E12S53}":{
-      "self_avg":0.66413,
-      "self_total":15.14154,
-      "full_avg":0.67059,
-      "full_total":15.29078
+    "process_cpu{type=spawn-control,label=E12S53_spawn,group=E12S53}": {
+      "self_avg": 0.66413,
+      "self_total": 15.14154,
+      "full_avg": 0.67059,
+      "full_total": 15.29078
     },
-    "process_cpu{type=creep-manager,label=creep_manager,group=E12S53}":{
-      "self_avg":0.09506,
-      "self_total":3.5208,
-      "full_avg":0.09871,
-      "full_total":3.63949
+    "process_cpu{type=creep-manager,label=creep_manager,group=E12S53}": {
+      "self_avg": 0.09506,
+      "self_total": 3.5208,
+      "full_avg": 0.09871,
+      "full_total": 3.63949
     },
-    "process_cpu{type=container-source,label=container_source,group=E12S53}":{
-      "self_avg":0.22039,
-      "self_total":7.96773,
-      "full_avg":1.45373,
-      "full_total":42.9391
+    "process_cpu{type=container-source,label=container_source,group=E12S53}": {
+      "self_avg": 0.22039,
+      "self_total": 7.96773,
+      "full_avg": 1.45373,
+      "full_total": 42.9391
     },
-    "process_cpu{type=priority-manager,label=E12S53_priority_manager,group=E12S53}":{
-      "self_avg":0.01521,
-      "self_total":0.47027,
-      "full_avg":0.01865,
-      "full_total":0.58629
+    "process_cpu{type=priority-manager,label=E12S53_priority_manager,group=E12S53}": {
+      "self_avg": 0.01521,
+      "self_total": 0.47027,
+      "full_avg": 0.01865,
+      "full_total": 0.58629
     },
-    "process_cpu{type=room-needs,label=E12S53_needs,group=E12S53}":{
-      "self_avg":1.7623,
-      "self_total":6.96967,
-      "full_avg":1.76755,
-      "full_total":7.09542
+    "process_cpu{type=room-needs,label=E12S53_needs,group=E12S53}": {
+      "self_avg": 1.7623,
+      "self_total": 6.96967,
+      "full_avg": 1.76755,
+      "full_total": 7.09542
     },
-    "process_cpu{type=room-hauling,label=room_hauling,group=E12S53}":{
-      "self_avg":0.08704,
-      "self_total":4.61186,
-      "full_avg":1.06978,
-      "full_total":24.22579
+    "process_cpu{type=room-hauling,label=room_hauling,group=E12S53}": {
+      "self_avg": 0.08704,
+      "self_total": 4.61186,
+      "full_avg": 1.06978,
+      "full_total": 24.22579
     },
-    "process_cpu{type=heap-room-logistics,label=E12S53_heap_logistics,group=E12S53}":{
-      "self_avg":0.19792,
-      "self_total":12.94715,
-      "full_avg":3.12312,
-      "full_total":47.15022
+    "process_cpu{type=heap-room-logistics,label=E12S53_heap_logistics,group=E12S53}": {
+      "self_avg": 0.19792,
+      "self_total": 12.94715,
+      "full_avg": 3.12312,
+      "full_total": 47.15022
     },
-    "process_cpu{type=tower-defense,label=E12S53_towers,group=E12S53}":{
-      "self_avg":0.04358,
-      "self_total":1.80849,
-      "full_avg":0.0497,
-      "full_total":1.99586
+    "process_cpu{type=tower-defense,label=E12S53_towers,group=E12S53}": {
+      "self_avg": 0.04358,
+      "self_total": 1.80849,
+      "full_avg": 0.0497,
+      "full_total": 1.99586
     },
-    "process_cpu{type=creep-manager,label=E12S53_crp_mgr,group=E12S53}":{
-      "self_avg":0.07998,
-      "self_total":2.88922,
-      "full_avg":0.08399,
-      "full_total":3.03699
+    "process_cpu{type=creep-manager,label=E12S53_crp_mgr,group=E12S53}": {
+      "self_avg": 0.07998,
+      "self_total": 2.88922,
+      "full_avg": 0.08399,
+      "full_total": 3.03699
     },
-    "process_cpu{type=room-remote-harvest,label=E12S53_remote_harvest,group=E12S53}":{
-      "self_avg":0.60308,
-      "self_total":8.40236,
-      "full_avg":0.71004,
-      "full_total":12.28702
+    "process_cpu{type=room-remote-harvest,label=E12S53_remote_harvest,group=E12S53}": {
+      "self_avg": 0.60308,
+      "self_total": 8.40236,
+      "full_avg": 0.71004,
+      "full_total": 12.28702
     },
-    "process_cpu{type=room-core,label=E12S53_core,group=E12S53}":{
-      "self_avg":0.12113,
-      "self_total":2.33105,
-      "full_avg":8.09891,
-      "full_total":174.43514
+    "process_cpu{type=room-core,label=E12S53_core,group=E12S53}": {
+      "self_avg": 0.12113,
+      "self_total": 2.33105,
+      "full_avg": 8.09891,
+      "full_total": 174.43514
     },
-    "process_cpu{type=global-core,label=global_core,group=none}":{
-      "self_avg":0.52422,
-      "self_total":5.98108,
-      "full_avg":24.91837,
-      "full_total":314.2296
+    "process_cpu{type=global-core,label=global_core,group=none}": {
+      "self_avg": 0.52422,
+      "self_total": 5.98108,
+      "full_avg": 24.91837,
+      "full_total": 314.2296
     },
-    "process_cpu{type=orphaned_creeps,label=orphaned_creeps,group=none}":{
-      "self_avg":0.02568,
-      "self_total":0.15088,
-      "full_avg":0.03818,
-      "full_total":0.32341
+    "process_cpu{type=orphaned_creeps,label=orphaned_creeps,group=none}": {
+      "self_avg": 0.02568,
+      "self_total": 0.15088,
+      "full_avg": 0.03818,
+      "full_total": 0.32341
     }
   },
-  "room{room=E12S53}":{
-    "tick":57139104,
-    "controller_level":6,
-    "controller_progress":2567200,
-    "controller_progress_total":3645000,
-    "storage_energy":228442,
-    "storage_used_total":228442,
-    "storage_free_total":771558
+  "room{room=E12S53}": {
+    "tick": 57139104,
+    "controller_level": 6,
+    "controller_progress": 2567200,
+    "controller_progress_total": 3645000,
+    "storage_energy": 228442,
+    "storage_used_total": 228442,
+    "storage_free_total": 771558
   },
-  "promises":{
-    "total_count":12
+  "promises": {
+    "total_count": 12
   },
-  "cpu":{
-    "heapStatistics":{
-      "total_heap_size":64532480,
-      "total_heap_size_executable":2621440,
-      "total_physical_size":53944312,
-      "total_available_size":606532072,
-      "used_heap_size":26717544,
-      "heap_size_limit":652562061,
-      "malloced_memory":8192,
-      "peak_malloced_memory":2834344,
-      "does_zap_garbage":0,
-      "externally_allocated_size":39551926
+  "cpu": {
+    "heapStatistics": {
+      "total_heap_size": 64532480,
+      "total_heap_size_executable": 2621440,
+      "total_physical_size": 53944312,
+      "total_available_size": 606532072,
+      "used_heap_size": 26717544,
+      "heap_size_limit": 652562061,
+      "malloced_memory": 8192,
+      "peak_malloced_memory": 2834344,
+      "does_zap_garbage": 0,
+      "externally_allocated_size": 39551926
     },
-    "limit":20,
-    "bucket":3863,
-    "getUsed":8.98927
+    "limit": 20,
+    "bucket": 3863,
+    "getUsed": 8.98927
   },
-  "game":{
-    "time":57139104
+  "game": {
+    "time": 57139104
   },
-  "gcl":{
-    "progress":1689938.3569,
-    "progressTotal":8688578.52214,
-    "level":3
+  "gcl": {
+    "progress": 1689938.3569,
+    "progressTotal": 8688578.52214,
+    "level": 3
   },
-  "memory":{
-    "used":44592
+  "memory": {
+    "used": 44592
   }
 }

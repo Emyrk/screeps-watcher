@@ -1,17 +1,17 @@
 {
-  "cpu":{
-    "limit":10000,
-    "heap_statistics":{
-      "total_heap_size":100,
-      "total_heap_size_executable":100,
-      "total_physical_size":100,
-      "total_available_size":100,
-      "used_heap_size":100,
-      "heap_size_limit":100,
-      "malloced_memory":100,
-      "peak_malloced_memory":100,
-      "does_zap_garbage":0,
-      "externally_allocated_size":100
+  "cpu": {
+    "limit": 10000,
+    "heap_statistics": {
+      "total_heap_size": 100,
+      "total_heap_size_executable": 100,
+      "total_physical_size": 100,
+      "total_available_size": 100,
+      "used_heap_size": 100,
+      "heap_size_limit": 100,
+      "malloced_memory": 100,
+      "peak_malloced_memory": 100,
+      "does_zap_garbage": 0,
+      "externally_allocated_size": 100
     }
   }
 }
