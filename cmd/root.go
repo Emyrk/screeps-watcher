@@ -58,6 +58,7 @@ func (r *Root) RootCmd() *serpent.Command {
 	cmd.AddSubcommands(
 		versionCmd(),
 		r.WatchCmd(),
+		r.pprofDemo(),
 	)
 
 	return cmd

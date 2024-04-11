@@ -1,10 +1,11 @@
 package profile_test
 
 import (
-	"runtime/pprof"
 	"testing"
+
+	"github.com/Emyrk/screeps-watcher/watch/profile"
 )
 
 func TestProfile(t *testing.T) {
-	pprof.NewProfile()
+	profile.ConvertCallgrind()
 }

@@ -43,7 +43,7 @@
 // 	protoc        v4.24.4
 // source: proto/profile.proto
 
-package proto
+package pprofproto
 
 import (
 	protoreflect "google.golang.org/protobuf/reflect/protoreflect"
