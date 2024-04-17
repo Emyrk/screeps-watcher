@@ -240,6 +240,7 @@ func (s *Session) Watch(ctx context.Context) error {
 		}
 		if err != nil {
 			s.logger.Error().Err(err).Msg("Failed to read from websocket")
+			return err
 		}
 
 		err = s.handleIncomingMessage(ctx, data)

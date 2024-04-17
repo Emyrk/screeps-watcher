@@ -3,7 +3,10 @@ package cmd
 import (
 	"fmt"
 	"net/http"
+	_ "net/http/pprof"
 	"os"
+	pprof2 "runtime/pprof"
+	"time"
 
 	"github.com/Emyrk/screeps-watcher/watch"
 	"github.com/prometheus/client_golang/prometheus"
@@ -78,6 +81,23 @@ func (r *Root) WatchCmd() *serpent.Command {
 			handler := promhttp.HandlerFor(reg, promhttp.HandlerOpts{
 				Registry: reg,
 			})
+
+			f, _ := os.OpenFile("output.pprof", os.O_CREATE|os.O_RDWR, 0666)
+			pprof2.StartCPUProfile(f)
+			go func() {
+				time.Sleep(time.Second * 10)
+				pprof2.StopCPUProfile()
+				fmt.Println("DONE")
+			}()
+			//go func() {
+			//	mux := http.NewServeMux()
+			//	mux.Handle("/debug/pprof/profile", http.HandlerFunc(pprof.Profile))
+			//	err := http.ListenAndServe(":6060", mux)
+			//	if err != nil {
+			//		logger.Error().Err(err).Msg("pprof")
+			//	}
+			//}()
+
 			return http.ListenAndServe(":2112", handler)
 		},
 	}
