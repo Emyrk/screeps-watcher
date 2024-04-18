@@ -20,9 +20,12 @@ func memoryMetrics(data json.RawMessage) (map[string][]prometheusMetric, error) 
 		switch v := v.(type) {
 		case map[string]interface{}:
 			next(metrics, k, v)
+		case float64:
+			// Top level metric. Annoying, but this is ok.
+			next(metrics, "", map[string]interface{}{k: v})
 		default:
-			// Log an error?
-			//return nil, fmt.Errorf("unknown type: %T", v)
+			// Log an error
+			return nil, fmt.Errorf("parse top level, unknown type: %T", v)
 		}
 	}
 
@@ -91,6 +94,8 @@ func next(src map[string][]prometheusMetric, parent string, data map[string]inte
 
 		// Clean up any repeated underscores from nameless groups.
 		metricName = repeatedUnderscores.ReplaceAllString(metricName, "_")
+		// This *can* happen for flat metrics.
+		metricName = strings.TrimPrefix(metricName, "_")
 		src[metricName] = append(src[metricName], prometheusMetric{
 			Labels: labels,
 			Value:  value,

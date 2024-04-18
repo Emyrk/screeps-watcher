@@ -1,0 +1,6 @@
+# HELP test_saved_state_total_count Metric from screeps memory segment.
+# TYPE test_saved_state_total_count gauge
+test_saved_state_total_count{test="test"} 6
+# HELP test_watcher_last_updated_unix_s Timestamp in unix seconds of the last memory update.
+# TYPE test_watcher_last_updated_unix_s gauge
+test_watcher_last_updated_unix_s{test="test"} 1.6094592e+09
