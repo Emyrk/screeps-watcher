@@ -207,6 +207,7 @@ func (w *Watcher) scrapeTarget(ctx context.Context, target *Target) int {
 	count, err := target.collector.SetMemory(data)
 	if err != nil {
 		logger.Error().
+			Err(err).
 			Int("segment_siz", len(data)).
 			Msg("failed to set memory metrics")
 	}
