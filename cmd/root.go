@@ -48,7 +48,7 @@ func (r *Root) RootCmd() *serpent.Command {
 				Flag:        "log-level",
 				Env:         "SCREEPS_LOG_LEVEL",
 				YAML:        "log_level",
-				Default:     "info",
+				Default:     "debug",
 				Value:       serpent.EnumOf(&r.LogLevel, "trace", "debug", "info", "warn", "error", "fatal", "panic"),
 				Group:       GroupLogs,
 			},
