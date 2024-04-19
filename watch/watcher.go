@@ -177,8 +177,9 @@ func (w *Watcher) WatchMemory(ctx context.Context) {
 		}
 
 		for _, target := range w.Targets {
-			count := w.scrapeTarget(ctx, target)
+			count, size := w.scrapeTarget(ctx, target)
 			w.logger.Info().
+				Int("segment_size", size).
 				Int("segment", target.SegmentID).
 				Str("shard", target.Shard).
 				Int("metric_count", count).
@@ -193,23 +194,23 @@ func (w *Watcher) WatchMemory(ctx context.Context) {
 	}
 }
 
-func (w *Watcher) scrapeTarget(ctx context.Context, target *Target) int {
+func (w *Watcher) scrapeTarget(ctx context.Context, target *Target) (int, int) {
 	logger := w.logger.With().
 		Str("shard", target.Shard).
 		Int("segment", target.SegmentID).Logger()
 
-	data, err := w.MemorySegment(ctx, target.SegmentID, target.Shard)
+	data, size, err := w.MemorySegment(ctx, target.SegmentID, target.Shard)
 	if err != nil {
 		logger.Error().Msg("failed to get memory segment")
-		return 0
+		return 0, size
 	}
 
 	count, err := target.collector.SetMemory(data)
 	if err != nil {
 		logger.Error().
 			Err(err).
-			Int("segment_size", len(data)).
+			Int("decoded_size", size).
 			Msg("failed to set memory metrics")
 	}
-	return count
+	return count, size
 }

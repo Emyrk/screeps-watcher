@@ -18,6 +18,8 @@ type Collector struct {
 	namespace   string
 	constLabels prometheus.Labels
 
+	metricCount prometheus.Gauge
+	segmentSize prometheus.Gauge
 	lastUpdated prometheus.Gauge
 	metrics     atomic.Pointer[map[string][]prometheusMetric]
 	now         func() time.Time
@@ -31,11 +33,25 @@ func New(logger zerolog.Logger, namespace string, labels prometheus.Labels) *Col
 		namespace:   namespace,
 		constLabels: labels,
 		now:         time.Now,
+		segmentSize: prometheus.NewGauge(prometheus.GaugeOpts{
+			Namespace:   namespace,
+			Subsystem:   "watcher",
+			Name:        "segment_size",
+			Help:        "Size of the memory segment in bytes.",
+			ConstLabels: labels,
+		}),
 		lastUpdated: prometheus.NewGauge(prometheus.GaugeOpts{
 			Namespace:   namespace,
 			Subsystem:   "watcher",
 			Name:        "last_updated_unix_s",
 			Help:        "Timestamp in unix seconds of the last memory update.",
+			ConstLabels: labels,
+		}),
+		metricCount: prometheus.NewGauge(prometheus.GaugeOpts{
+			Namespace:   namespace,
+			Subsystem:   "watcher",
+			Name:        "metric_count",
+			Help:        "Number of metrics in the memory segment.",
 			ConstLabels: labels,
 		}),
 	}
@@ -90,6 +106,8 @@ func (c *Collector) Collect(ch chan<- prometheus.Metric) {
 	}
 
 	ch <- c.lastUpdated
+	ch <- c.segmentSize
+	ch <- c.metricCount
 }
 
 func (c *Collector) SetMemory(memory json.RawMessage) (int, error) {
@@ -98,12 +116,14 @@ func (c *Collector) SetMemory(memory json.RawMessage) (int, error) {
 		return 0, fmt.Errorf("read memory metrics: %w", err)
 	}
 
-	c.lastUpdated.Set(float64(c.now().Unix()))
-	c.metrics.Store(&metrics)
-
 	count := 0
 	for _, v := range metrics {
 		count += len(v)
 	}
+
+	c.metricCount.Set(float64(count))
+	c.segmentSize.Set(float64(len(memory)))
+	c.lastUpdated.Set(float64(c.now().Unix()))
+	c.metrics.Store(&metrics)
 	return count, nil
 }

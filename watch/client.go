@@ -14,7 +14,7 @@ import (
 )
 
 // https://github.com/screepers/node-screeps-api/blob/master/docs/Endpoints.md
-func (w *Watcher) MemorySegment(ctx context.Context, id int, shard string) (json.RawMessage, error) {
+func (w *Watcher) MemorySegment(ctx context.Context, id int, shard string) (json.RawMessage, int, error) {
 	vals := url.Values{
 		"segment": []string{strconv.Itoa(id)},
 		"shard":   []string{shard},
@@ -25,13 +25,13 @@ func (w *Watcher) MemorySegment(ctx context.Context, id int, shard string) (json
 		RawQuery: vals.Encode(),
 	}).String(), nil)
 	if err != nil {
-		return nil, fmt.Errorf("new request: %w", err)
+		return nil, -1, fmt.Errorf("new request: %w", err)
 	}
 
 	req.Header.Set("Content-Type", "application/json")
 	resp, err := w.AuthMethod.AuthenticatedRequest(w.cli, req)
 	if err != nil {
-		return nil, fmt.Errorf("do request: %w", err)
+		return nil, -1, fmt.Errorf("do request: %w", err)
 	}
 	defer resp.Body.Close()
 
@@ -51,13 +51,17 @@ func (w *Watcher) MemorySegment(ctx context.Context, id int, shard string) (json
 	}
 
 	if resp.StatusCode != 200 {
-		return nil, fmt.Errorf("non-200 status code: %d", resp.StatusCode)
+		return nil, -1, fmt.Errorf("non-200 status code: %d", resp.StatusCode)
 	}
 
 	respData, err := io.ReadAll(resp.Body)
 	if err != nil {
-		return nil, fmt.Errorf("read all: %w", err)
+		return nil, -1, fmt.Errorf("read all: %w", err)
 	}
 
-	return memory.Decode(respData)
+	decoded, err := memory.Decode(respData)
+	if err != nil {
+		return nil, -1, fmt.Errorf("decode: %w", err)
+	}
+	return decoded, len(respData), nil
 }

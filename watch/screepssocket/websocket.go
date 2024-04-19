@@ -221,7 +221,7 @@ func (s *ScreepsWebsocket) dial(ctx context.Context) (*Session, error) {
 	if conn == nil {
 		return nil, fmt.Errorf("dial websocket %s: nil connection", socketURL.String())
 	}
-	// 10KB is maximum memory segment size
+	// 10KB is a high limit.
 	conn.SetReadLimit(102400)
 
 	buf := make([]byte, 3)
