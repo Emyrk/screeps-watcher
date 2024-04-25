@@ -136,6 +136,6 @@ func (c *Converter) function(name string) (*profile.Function, *profile.Location)
 	return fn, loc
 }
 
-func prepend[T any](s []T, x T) []T {
+func prepend[T any](x T, s []T) []T {
 	return append([]T{x}, s...)
 }
