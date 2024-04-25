@@ -135,3 +135,7 @@ func (c *Converter) function(name string) (*profile.Function, *profile.Location)
 	c.protobuf.Location = append(c.protobuf.Location, loc)
 	return fn, loc
 }
+
+func prepend[T any](s []T, x T) []T {
+	return append([]T{x}, s...)
+}
