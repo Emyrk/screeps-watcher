@@ -62,7 +62,7 @@ services:
   pyroscope:
     hostname: pyroscope
     container_name: pyroscope
-    image: "pyroscope/pyroscope:latest"
+    image: "grafana/pyroscope:latest"
     ports:
       - "4040:4040"
     command:
