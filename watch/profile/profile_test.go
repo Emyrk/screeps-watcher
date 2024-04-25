@@ -8,23 +8,25 @@ import (
 
 	profile2 "github.com/Emyrk/screeps-watcher/watch/profile"
 	"github.com/Emyrk/screeps-watcher/watch/profile/callgrind"
+	"github.com/Emyrk/screeps-watcher/watch/profile/eluded"
 	"github.com/google/pprof/profile"
 	"github.com/stretchr/testify/require"
 )
+
+func TestEluded(t *testing.T) {
+	converter := profile2.New()
+	converter.Convert(eluded.Example)
+	data, err := converter.Encode()
+	require.NoError(t, err)
+
+	os.WriteFile("created.pprof", data, 0644)
+}
 
 func TestParsePProf(t *testing.T) {
 	proto, err := profile.Parse(bytes.NewBufferString(callgrind.PProfDemo))
 	require.NoError(t, err)
 	fmt.Println(proto.String())
 	fmt.Println("")
-}
-
-func TestConvertExample(t *testing.T) {
-	out, err := profile2.ConvertCallgrind(callgrind.Example)
-	require.NoError(t, err)
-
-	os.WriteFile("created.pprof", out, 0644)
-	fmt.Println(string(out))
 }
 
 var testM = []*profile.Mapping{
@@ -169,15 +171,4 @@ var all = &profile.Profile{
 	Mapping:  testM,
 	Location: testL,
 	Comments: []string{"Comment 1", "Comment 2"},
-}
-
-func TestMarshalUnmarshal(t *testing.T) {
-	profile2.ConvertCallgrind(callgrind.Example)
-	// Write the profile, parse it, and ensure they're equal.
-	var buf bytes.Buffer
-	all.Write(&buf)
-	fmt.Println(all.String())
-
-	os.WriteFile("test.pprof", buf.Bytes(), 0644)
-	//fmt.Println(buf.String())
 }
