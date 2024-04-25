@@ -2,8 +2,9 @@ storage-path: "/var/lib/pyroscope"
 
 retention: 360h # 15 days
 exemplars-retention: 72h # 3 days
-max_profile_size_bytes: 0
-max_profile_stacktrace_samples: 0
+limits:
+  max_profile_size_bytes: 0
+  max_profile_stacktrace_samples: 0
 
 scrape-configs:
   job-name: pyroscope
