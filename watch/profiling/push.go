@@ -62,11 +62,14 @@ func (p *PyroscopePusher) Push(name string, pb *profile.Profile) error {
 		return fmt.Errorf("write proto: %w", err)
 	}
 
+	start := time.UnixMilli(pb.TimeNanos / 1e6)
+	end := start.Add(time.Duration(pb.DurationNanos))
+
 	p.Remote.Upload(&upstream.UploadJob{
 		Name: name,
 		// Fix this
-		StartTime:       time.Now(),
-		EndTime:         time.Now().Add(time.Minute * 10),
+		StartTime:       start,
+		EndTime:         end,
 		SpyName:         "",
 		SampleRate:      0,
 		Units:           "cpu",

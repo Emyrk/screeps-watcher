@@ -18,10 +18,11 @@ func init() {
 var ExampleData string
 
 type Profile struct {
-	Key      string    `json:"key"`
-	Start    float64   `json:"start"`
-	CPU      float64   `json:"cpu"`
-	Children []Profile `json:"children"`
+	Key       string    `json:"key"`
+	Start     float64   `json:"start"`
+	CPU       float64   `json:"cpu"`
+	Children  []Profile `json:"children"`
+	UnixMilli int64     `json:"um,omitempty"`
 }
 
 // CPUNano returns the number of nanoseconds. Probably too much

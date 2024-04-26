@@ -36,12 +36,13 @@ func New() *Converter {
 			KeepFrames: "",
 
 			// TODO: @emyrk get a more accurate timestamp from the client.
-			TimeNanos: time.Now().UnixNano(),
+			TimeNanos:     time.Now().UnixNano(),
+			DurationNanos: 0,
+
 			// TODO: @emyrk this should be included to indicate how long the
 			// 		profile ran. The amount of time run should be the CPU_LIMIT.
 			//		If the tick exceeds the profile limit, that tick full duration
 			//		should be included.
-			//DurationNanos:     0,
 			// TODO: @emyrk This will be helpful when we know the periodic nature
 			// 	of the profile. For example, if 100 ticks are profiled every 1000 ticks,
 			// 	that information can be encoded here.
@@ -52,9 +53,27 @@ func New() *Converter {
 }
 
 func (c *Converter) Convert(elu []eluded.Profile) *profile.Profile {
+
+	if len(elu) > 0 && elu[0].UnixMilli > 0 {
+		c.protobuf.TimeNanos = elu[0].UnixMilli * 1e6
+	}
+
+	endNanos := int64(0)
 	for _, tick := range elu {
+		unixNano := tick.UnixMilli * 1e6
+		if unixNano > 0 && unixNano < c.protobuf.TimeNanos {
+			// Update the start to the first sample
+			c.protobuf.TimeNanos = unixNano
+		}
+
+		if unixNano > endNanos {
+			endNanos = unixNano
+		}
 		tick.Key = "tick"
 		c.ConvertSingle(tick)
+	}
+	if endNanos > 0 {
+		c.protobuf.DurationNanos = endNanos - c.protobuf.TimeNanos
 	}
 	return c.protobuf
 }
