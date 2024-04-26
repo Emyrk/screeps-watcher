@@ -18,7 +18,7 @@ func init() {
 	var _ = err
 }
 
-//go:embed dump2.json
+//go:embed dump3.json
 var ExampleData string
 
 type Profile struct {
@@ -52,7 +52,8 @@ func (m MinProfile) Profile() Profile {
 }
 
 func ParseProfileData(data []byte) ([]Profile, error) {
-	if strings.Contains(string(data[0:10]), `"k":`) {
+	// TODO: Fix this, it's so jank
+	if len(data) > 200 && strings.Contains(string(data[0:200]), `"k":`) {
 		// Use vs
 		var min []MinProfile
 		err := json.Unmarshal(data, &min)

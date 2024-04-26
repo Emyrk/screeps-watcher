@@ -53,7 +53,6 @@ func New() *Converter {
 }
 
 func (c *Converter) Convert(elu []eluded.Profile) *profile.Profile {
-
 	if len(elu) > 0 && elu[0].UnixMilli > 0 {
 		c.protobuf.TimeNanos = elu[0].UnixMilli * 1e6
 	}
@@ -108,17 +107,19 @@ func (c *Converter) recurseFunctions(elu eluded.Profile, sample *profile.Sample)
 	}
 
 	for _, call := range elu.Children {
+		// TODO: I think this copy is excessive?
+		copyLoc := make([]*profile.Location, len(sample.Location))
+		copy(copyLoc, sample.Location)
 		// For each child, prepend the stack and the cost of the child.
-		fn, callLoc := c.function(call.Key)
 		callSample := &profile.Sample{
-			Location: prepend(callLoc, sample.Location),
+			Location: copyLoc,
 			Value:    []int64{call.SelfCostNano(), 1},
 		}
-		var _ = fn
 
-		if call.SelfCostNano() > 10000 {
-			c.protobuf.Sample = append(c.protobuf.Sample, callSample)
-		}
+		// TODO: Should I put this minimum in?
+		//if call.SelfCostNano() > 10000 {
+		c.protobuf.Sample = append(c.protobuf.Sample, callSample)
+		//}
 		c.recurseFunctions(call, callSample)
 	}
 }
@@ -162,4 +163,13 @@ func (c *Converter) function(name string) (*profile.Function, *profile.Location)
 
 func prepend[T any](x T, s []T) []T {
 	return append([]T{x}, s...)
+}
+
+func FindFunction(p *profile.Profile, id uint64) *profile.Function {
+	for _, f := range p.Function {
+		if f.ID == id {
+			return f
+		}
+	}
+	return nil
 }
