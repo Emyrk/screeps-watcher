@@ -1,35 +1,1973 @@
 [
   {
-    "k":"Tick 1743322",
-    "s":0,
-    "u":8.37779,
-    "c":[
+    "k": "Tick 1746492",
+    "s": 0,
+    "u": 11.23758,
+    "c": [
       {
-        "k":"Process:runRootPIDs",
-        "s":0.40063,
-        "u":6.64454
+        "k": "Mem:load",
+        "s": 0.54194,
+        "u": 0.00603
       },
       {
-        "k":"RoomCostMatrix:loop",
-        "s":7.05129,
-        "u":0.00299
+        "k": "Mem:shouldRun",
+        "s": 0.55414,
+        "u": 0.00389
       },
       {
-        "k":"BaseCollector:loop",
-        "s":8.35604,
-        "u":0.01479,
-        "c":[
+        "k": "Mem:clean",
+        "s": 0.56171,
+        "u": 0.00295
+      },
+      {
+        "k": "Process:runRootPIDs",
+        "s": 0.56905,
+        "u": 9.74611,
+        "c": [
           {
-            "k":"BaseCollector:collect",
-            "s":8.3597,
-            "u":0.00313
+            "k": "Process:initializeProgram",
+            "s": 0.57864,
+            "u": 0.00401
+          },
+          {
+            "k": "ProgramEmpire:Process:run",
+            "s": 0.59001,
+            "u": 9.72161,
+            "c": [
+              {
+                "k": "ProgramVillage:Process:run",
+                "s": 0.62872,
+                "u": 9.61439,
+                "c": [
+                  {
+                    "k": "ProgramVillage:execute",
+                    "s": 0.63468,
+                    "u": 0.11328,
+                    "c": [
+                      {
+                        "k": "ProgramVillage:spawn",
+                        "s": 0.63819,
+                        "u": 0.03191,
+                        "c": [
+                          {
+                            "k": "Process:get",
+                            "s": 0.6426,
+                            "u": 0.02462,
+                            "c": [
+                              {
+                                "k": "Process:initializeProgram",
+                                "s": 0.64575,
+                                "u": 0.00282
+                              }
+                            ]
+                          }
+                        ]
+                      },
+                      {
+                        "k": "ProgramVillage:remotes",
+                        "s": 0.6732,
+                        "u": 0.03067,
+                        "c": [
+                          {
+                            "k": "Process:get",
+                            "s": 0.6768,
+                            "u": 0.0074,
+                            "c": [
+                              {
+                                "k": "Process:initializeProgram",
+                                "s": 0.67952,
+                                "u": 0.00247
+                              }
+                            ]
+                          },
+                          {
+                            "k": "Process:get",
+                            "s": 0.68756,
+                            "u": 0.01409,
+                            "c": [
+                              {
+                                "k": "Process:initializeProgram",
+                                "s": 0.69018,
+                                "u": 0.00225
+                              }
+                            ]
+                          }
+                        ]
+                      },
+                      {
+                        "k": "ProgramVillage:blueprint",
+                        "s": 0.70689,
+                        "u": 0.01302,
+                        "c": [
+                          {
+                            "k": "Process:get",
+                            "s": 0.7106,
+                            "u": 0.00715,
+                            "c": [
+                              {
+                                "k": "Process:initializeProgram",
+                                "s": 0.7133,
+                                "u": 0.00232
+                              }
+                            ]
+                          }
+                        ]
+                      },
+                      {
+                        "k": "ProgramVillage:updatePrimaryLink",
+                        "s": 0.72278,
+                        "u": 0.00298
+                      },
+                      {
+                        "k": "ProgramVillage:marketSell",
+                        "s": 0.74145,
+                        "u": 0.00284
+                      }
+                    ]
+                  },
+                  {
+                    "k": "ProgramSpawnControl:Process:run",
+                    "s": 0.76272,
+                    "u": 0.04275,
+                    "c": [
+                      {
+                        "k": "ProgramSpawnControl:execute",
+                        "s": 0.7689,
+                        "u": 0.01829,
+                        "c": [
+                          {
+                            "k": "ProgramSpawnControl:visual",
+                            "s": 0.77246,
+                            "u": 0.01116
+                          }
+                        ]
+                      }
+                    ]
+                  },
+                  {
+                    "k": "ProgramTowerDefense:Process:run",
+                    "s": 0.80968,
+                    "u": 0.05673,
+                    "c": [
+                      {
+                        "k": "ProgramTowerDefense:execute",
+                        "s": 0.81481,
+                        "u": 0.03492,
+                        "c": [
+                          {
+                            "k": "ProgramTowerDefense:room",
+                            "s": 0.8181,
+                            "u": 0.00306
+                          }
+                        ]
+                      }
+                    ]
+                  },
+                  {
+                    "k": "ProgramHeapRoomLogistics:Process:run",
+                    "s": 0.8715,
+                    "u": 6.25035,
+                    "c": [
+                      {
+                        "k": "ProgramHeapRoomLogistics:execute",
+                        "s": 0.87719,
+                        "u": 0.6359,
+                        "c": [
+                          {
+                            "k": "ProgramHeapRoomLogistics:popQueues",
+                            "s": 0.88093,
+                            "u": 0.09003,
+                            "c": [
+                              {
+                                "k": "LogisticsAvailable:announceAvailable",
+                                "s": 0.89025,
+                                "u": 0.01886,
+                                "c": [
+                                  {
+                                    "k": "LogisticsAvailable:queryAvailable",
+                                    "s": 0.89331,
+                                    "u": 0.0129
+                                  }
+                                ]
+                              },
+                              {
+                                "k": "LogisticsAvailable:announceAvailable",
+                                "s": 0.9132,
+                                "u": 0.02971,
+                                "c": [
+                                  {
+                                    "k": "LogisticsAvailable:queryAvailable",
+                                    "s": 0.91602,
+                                    "u": 0.02414
+                                  }
+                                ]
+                              },
+                              {
+                                "k": "LogisticsAvailable:announceAvailable",
+                                "s": 0.947,
+                                "u": 0.01657,
+                                "c": [
+                                  {
+                                    "k": "LogisticsAvailable:queryAvailable",
+                                    "s": 0.94981,
+                                    "u": 0.01123
+                                  }
+                                ]
+                              }
+                            ]
+                          },
+                          {
+                            "k": "LogisticsAvailable:visual",
+                            "s": 0.97426,
+                            "u": 0.36452
+                          },
+                          {
+                            "k": "LogisticNeeds:visual",
+                            "s": 1.34602,
+                            "u": 0.16005
+                          }
+                        ]
+                      },
+                      {
+                        "k": "ProgramPriorityManager:Process:run",
+                        "s": 1.55691,
+                        "u": 0.03408,
+                        "c": [
+                          {
+                            "k": "ProgramPriorityManager:execute",
+                            "s": 1.56346,
+                            "u": 0.00941,
+                            "c": [
+                              {
+                                "k": "ProgramPriorityManager:adjustTarget",
+                                "s": 1.56695,
+                                "u": 0.00303
+                              }
+                            ]
+                          }
+                        ]
+                      },
+                      {
+                        "k": "ProgramRoomLogisticsBootstrap:Process:run",
+                        "s": 1.59549,
+                        "u": 0.12686,
+                        "c": [
+                          {
+                            "k": "ProgramRoomLogisticsBootstrap:execute",
+                            "s": 1.60101,
+                            "u": 0.06361,
+                            "c": [
+                              {
+                                "k": "ProgramRoomLogisticsBootstrap:maintainRoads",
+                                "s": 1.61082,
+                                "u": 0.00302
+                              },
+                              {
+                                "k": "ProgramRoomLogisticsBootstrap:maintainRemainingStructures",
+                                "s": 1.61708,
+                                "u": 0.00274
+                              },
+                              {
+                                "k": "ProgramRoomLogisticsBootstrap:maintainConstructionSites",
+                                "s": 1.62274,
+                                "u": 0.00261
+                              },
+                              {
+                                "k": "ProgramRoomLogisticsBootstrap:maintainControllerAndStorage",
+                                "s": 1.64221,
+                                "u": 0.00263
+                              },
+                              {
+                                "k": "ProgramRoomLogisticsBootstrap:announceStorage",
+                                "s": 1.64777,
+                                "u": 0.00252
+                              },
+                              {
+                                "k": "ProgramRoomLogisticsBootstrap:maintainTerminal",
+                                "s": 1.65311,
+                                "u": 0.0024
+                              },
+                              {
+                                "k": "ProgramRoomLogisticsBootstrap:maintainTowers",
+                                "s": 1.65835,
+                                "u": 0.00262
+                              }
+                            ]
+                          }
+                        ]
+                      },
+                      {
+                        "k": "ProgramRoomHauling:Process:run",
+                        "s": 1.72863,
+                        "u": 5.38102,
+                        "c": [
+                          {
+                            "k": "ProgramRoomHauling:execute",
+                            "s": 1.73438,
+                            "u": 2.69823,
+                            "c": [
+                              {
+                                "k": "ProgramRoomHauling:logistics",
+                                "s": 1.73774,
+                                "u": 0.01501,
+                                "c": [
+                                  {
+                                    "k": "Process:get",
+                                    "s": 1.74235,
+                                    "u": 0.00812,
+                                    "c": [
+                                      {
+                                        "k": "Process:initializeProgram",
+                                        "s": 1.7454,
+                                        "u": 0.0026
+                                      }
+                                    ]
+                                  }
+                                ]
+                              },
+                              {
+                                "k": "ProgramRoomHauling:maintainCreeps",
+                                "s": 1.76986,
+                                "u": 0.00308
+                              },
+                              {
+                                "k": "ProgramRoomHauling:assignCreepJobs",
+                                "s": 3.04202,
+                                "u": 1.38206,
+                                "c": [
+                                  {
+                                    "k": "ProgramRoomHauling:logistics",
+                                    "s": 3.85442,
+                                    "u": 0.04691,
+                                    "c": [
+                                      {
+                                        "k": "Process:get",
+                                        "s": 3.88873,
+                                        "u": 0.00979,
+                                        "c": [
+                                          {
+                                            "k": "Process:initializeProgram",
+                                            "s": 3.89223,
+                                            "u": 0.00321
+                                          }
+                                        ]
+                                      }
+                                    ]
+                                  },
+                                  {
+                                    "k": "ProgramHeapRoomLogistics:assignHaulJob",
+                                    "s": 3.90793,
+                                    "u": 0.3113,
+                                    "c": [
+                                      {
+                                        "k": "ProgramHeapRoomLogistics:haulerDropoff",
+                                        "s": 4.1076,
+                                        "u": 0.08719,
+                                        "c": [
+                                          {
+                                            "k": "ProgramHeapRoomLogistics:bestDropoff",
+                                            "s": 4.11639,
+                                            "u": 0.07198,
+                                            "c": [
+                                              {
+                                                "k": "LogisticNeeds:sortedList",
+                                                "s": 4.12246,
+                                                "u": 0.02005
+                                              },
+                                              {
+                                                "k": "Civis:getBodyparts",
+                                                "s": 4.14852,
+                                                "u": 0.01079
+                                              }
+                                            ]
+                                          }
+                                        ]
+                                      }
+                                    ]
+                                  },
+                                  {
+                                    "k": "Tasks:initialize",
+                                    "s": 4.23245,
+                                    "u": 0.10036,
+                                    "c": [
+                                      {
+                                        "k": "Tasks:initialize",
+                                        "s": 4.24541,
+                                        "u": 0.00643
+                                      }
+                                    ]
+                                  },
+                                  {
+                                    "k": "Tasks:initialize",
+                                    "s": 4.34818,
+                                    "u": 0.0111,
+                                    "c": [
+                                      {
+                                        "k": "Tasks:initialize",
+                                        "s": 4.35389,
+                                        "u": 0.00307
+                                      }
+                                    ]
+                                  },
+                                  {
+                                    "k": "Tasks:initialize",
+                                    "s": 4.36464,
+                                    "u": 0.01635,
+                                    "c": [
+                                      {
+                                        "k": "Tasks:initialize",
+                                        "s": 4.36809,
+                                        "u": 0.01059
+                                      }
+                                    ]
+                                  },
+                                  {
+                                    "k": "Tasks:initialize",
+                                    "s": 4.386,
+                                    "u": 0.00811,
+                                    "c": [
+                                      {
+                                        "k": "Tasks:initialize",
+                                        "s": 4.38941,
+                                        "u": 0.00258
+                                      }
+                                    ]
+                                  },
+                                  {
+                                    "k": "Tasks:initialize",
+                                    "s": 4.39859,
+                                    "u": 0.00998,
+                                    "c": [
+                                      {
+                                        "k": "Tasks:initialize",
+                                        "s": 4.4018,
+                                        "u": 0.00464
+                                      }
+                                    ]
+                                  },
+                                  {
+                                    "k": "Tasks:initialize",
+                                    "s": 4.41324,
+                                    "u": 0.00798,
+                                    "c": [
+                                      {
+                                        "k": "Tasks:initialize",
+                                        "s": 4.41644,
+                                        "u": 0.00269
+                                      }
+                                    ]
+                                  }
+                                ]
+                              }
+                            ]
+                          },
+                          {
+                            "k": "Civis:run",
+                            "s": 4.44701,
+                            "u": 0.02919,
+                            "c": [
+                              {
+                                "k": "Civis:refresh",
+                                "s": 4.45008,
+                                "u": 0.00268
+                              },
+                              {
+                                "k": "Intents:reset",
+                                "s": 4.4575,
+                                "u": 0.00311
+                              }
+                            ]
+                          },
+                          {
+                            "k": "Civis:run",
+                            "s": 4.47972,
+                            "u": 0.39761,
+                            "c": [
+                              {
+                                "k": "Civis:refresh",
+                                "s": 4.48244,
+                                "u": 0.00229
+                              },
+                              {
+                                "k": "Intents:reset",
+                                "s": 4.48733,
+                                "u": 0.00227
+                              },
+                              {
+                                "k": "Tasks:initialize",
+                                "s": 4.49515,
+                                "u": 0.00862,
+                                "c": [
+                                  {
+                                    "k": "Tasks:initialize",
+                                    "s": 4.49902,
+                                    "u": 0.00259
+                                  }
+                                ]
+                              },
+                              {
+                                "k": "Tasks:initialize",
+                                "s": 4.50806,
+                                "u": 0.00771,
+                                "c": [
+                                  {
+                                    "k": "Tasks:initialize",
+                                    "s": 4.51124,
+                                    "u": 0.00245
+                                  }
+                                ]
+                              },
+                              {
+                                "k": "ControlFlowFIFO:Task:run",
+                                "s": 4.52182,
+                                "u": 0.34565,
+                                "c": [
+                                  {
+                                    "k": "TaskUpgrade:isValid",
+                                    "s": 4.53093,
+                                    "u": 0.0157
+                                  },
+                                  {
+                                    "k": "TaskUpgrade:isValid",
+                                    "s": 4.5541,
+                                    "u": 0.00423
+                                  },
+                                  {
+                                    "k": "TaskUpgrade:Task:run",
+                                    "s": 4.56221,
+                                    "u": 0.30252,
+                                    "c": [
+                                      {
+                                        "k": "TaskUpgrade:isValid",
+                                        "s": 4.56657,
+                                        "u": 0.00292
+                                      },
+                                      {
+                                        "k": "TaskUpgrade:Task:moveToTarget",
+                                        "s": 4.59019,
+                                        "u": 0.27177,
+                                        "c": [
+                                          {
+                                            "k": "Civis:goTo",
+                                            "s": 4.60204,
+                                            "u": 0.25685,
+                                            "c": [
+                                              {
+                                                "k": "RoomCostMatrix:callbackForRoom",
+                                                "s": 4.61394,
+                                                "u": 0.00253
+                                              }
+                                            ]
+                                          }
+                                        ]
+                                      }
+                                    ]
+                                  }
+                                ]
+                              }
+                            ]
+                          },
+                          {
+                            "k": "Civis:run",
+                            "s": 4.88235,
+                            "u": 0.66833,
+                            "c": [
+                              {
+                                "k": "Civis:refresh",
+                                "s": 4.88543,
+                                "u": 0.00269
+                              },
+                              {
+                                "k": "Intents:reset",
+                                "s": 4.89093,
+                                "u": 0.00251
+                              },
+                              {
+                                "k": "Tasks:initialize",
+                                "s": 4.90129,
+                                "u": 0.02376,
+                                "c": [
+                                  {
+                                    "k": "Tasks:initialize",
+                                    "s": 4.90614,
+                                    "u": 0.0165
+                                  }
+                                ]
+                              },
+                              {
+                                "k": "Tasks:initialize",
+                                "s": 4.93016,
+                                "u": 0.00801,
+                                "c": [
+                                  {
+                                    "k": "Tasks:initialize",
+                                    "s": 4.93349,
+                                    "u": 0.00247
+                                  }
+                                ]
+                              },
+                              {
+                                "k": "ControlFlowFIFO:Task:run",
+                                "s": 4.94144,
+                                "u": 0.60125,
+                                "c": [
+                                  {
+                                    "k": "TaskUpgrade:isValid",
+                                    "s": 4.94533,
+                                    "u": 0.01184
+                                  },
+                                  {
+                                    "k": "TaskUpgrade:isValid",
+                                    "s": 4.96121,
+                                    "u": 0.00296
+                                  },
+                                  {
+                                    "k": "TaskUpgrade:Task:run",
+                                    "s": 4.96718,
+                                    "u": 0.57309,
+                                    "c": [
+                                      {
+                                        "k": "TaskUpgrade:isValid",
+                                        "s": 4.97042,
+                                        "u": 0.0027
+                                      },
+                                      {
+                                        "k": "TaskUpgrade:Task:moveToTarget",
+                                        "s": 4.98911,
+                                        "u": 0.27963,
+                                        "c": [
+                                          {
+                                            "k": "Civis:goTo",
+                                            "s": 4.99693,
+                                            "u": 0.26891,
+                                            "c": [
+                                              {
+                                                "k": "RoomCostMatrix:callbackForRoom",
+                                                "s": 5.00105,
+                                                "u": 0.0024
+                                              },
+                                              {
+                                                "k": "Object:RoomCostMatrix:callback",
+                                                "s": 5.03445,
+                                                "u": 0.00292
+                                              }
+                                            ]
+                                          }
+                                        ]
+                                      },
+                                      {
+                                        "k": "TaskUpgrade:work",
+                                        "s": 5.27412,
+                                        "u": 0.26395,
+                                        "c": [
+                                          {
+                                            "k": "Civis:upgradeController",
+                                            "s": 5.28745,
+                                            "u": 0.24827,
+                                            "c": [
+                                              {
+                                                "k": "Civis:catchIntent",
+                                                "s": 5.52361,
+                                                "u": 0.01001,
+                                                "c": [
+                                                  {
+                                                    "k": "Intents:increment",
+                                                    "s": 5.52796,
+                                                    "u": 0.00324
+                                                  }
+                                                ]
+                                              }
+                                            ]
+                                          }
+                                        ]
+                                      }
+                                    ]
+                                  }
+                                ]
+                              }
+                            ]
+                          },
+                          {
+                            "k": "Civis:run",
+                            "s": 5.55412,
+                            "u": 0.3696,
+                            "c": [
+                              {
+                                "k": "Civis:refresh",
+                                "s": 5.55681,
+                                "u": 0.00246
+                              },
+                              {
+                                "k": "Intents:reset",
+                                "s": 5.56182,
+                                "u": 0.00242
+                              },
+                              {
+                                "k": "Tasks:initialize",
+                                "s": 5.57123,
+                                "u": 0.01031,
+                                "c": [
+                                  {
+                                    "k": "Tasks:initialize",
+                                    "s": 5.57591,
+                                    "u": 0.0033
+                                  }
+                                ]
+                              },
+                              {
+                                "k": "Tasks:initialize",
+                                "s": 5.58614,
+                                "u": 0.00815,
+                                "c": [
+                                  {
+                                    "k": "Tasks:initialize",
+                                    "s": 5.58957,
+                                    "u": 0.00258
+                                  }
+                                ]
+                              },
+                              {
+                                "k": "ControlFlowFIFO:Task:run",
+                                "s": 5.59742,
+                                "u": 0.31747,
+                                "c": [
+                                  {
+                                    "k": "TaskWithdraw:isValid",
+                                    "s": 5.60412,
+                                    "u": 0.03764
+                                  },
+                                  {
+                                    "k": "TaskWithdraw:isValid",
+                                    "s": 5.64725,
+                                    "u": 0.00864
+                                  },
+                                  {
+                                    "k": "TaskWithdraw:Task:run",
+                                    "s": 5.66266,
+                                    "u": 0.24957,
+                                    "c": [
+                                      {
+                                        "k": "TaskWithdraw:isValid",
+                                        "s": 5.66705,
+                                        "u": 0.00688
+                                      },
+                                      {
+                                        "k": "TaskWithdraw:Task:moveToTarget",
+                                        "s": 5.68344,
+                                        "u": 0.22609,
+                                        "c": [
+                                          {
+                                            "k": "Civis:goTo",
+                                            "s": 5.69039,
+                                            "u": 0.21522,
+                                            "c": [
+                                              {
+                                                "k": "RoomCostMatrix:callbackForRoom",
+                                                "s": 5.69429,
+                                                "u": 0.00226
+                                              }
+                                            ]
+                                          }
+                                        ]
+                                      }
+                                    ]
+                                  }
+                                ]
+                              }
+                            ]
+                          },
+                          {
+                            "k": "Civis:run",
+                            "s": 5.92939,
+                            "u": 0.59282,
+                            "c": [
+                              {
+                                "k": "Civis:refresh",
+                                "s": 5.93265,
+                                "u": 0.00268
+                              },
+                              {
+                                "k": "Intents:reset",
+                                "s": 5.93847,
+                                "u": 0.00263
+                              },
+                              {
+                                "k": "Tasks:initialize",
+                                "s": 5.94963,
+                                "u": 0.01149,
+                                "c": [
+                                  {
+                                    "k": "Tasks:initialize",
+                                    "s": 5.95522,
+                                    "u": 0.00332
+                                  }
+                                ]
+                              },
+                              {
+                                "k": "Tasks:initialize",
+                                "s": 5.96579,
+                                "u": 0.00907,
+                                "c": [
+                                  {
+                                    "k": "Tasks:initialize",
+                                    "s": 5.96995,
+                                    "u": 0.00266
+                                  }
+                                ]
+                              },
+                              {
+                                "k": "ControlFlowFIFO:Task:run",
+                                "s": 5.97837,
+                                "u": 0.53891,
+                                "c": [
+                                  {
+                                    "k": "TaskUpgrade:isValid",
+                                    "s": 5.98276,
+                                    "u": 0.01469
+                                  },
+                                  {
+                                    "k": "TaskUpgrade:isValid",
+                                    "s": 6.00181,
+                                    "u": 0.00334
+                                  },
+                                  {
+                                    "k": "TaskUpgrade:Task:run",
+                                    "s": 6.00842,
+                                    "u": 0.50636,
+                                    "c": [
+                                      {
+                                        "k": "TaskUpgrade:isValid",
+                                        "s": 6.01169,
+                                        "u": 0.00266
+                                      },
+                                      {
+                                        "k": "TaskUpgrade:Task:moveToTarget",
+                                        "s": 6.03108,
+                                        "u": 0.22929,
+                                        "c": [
+                                          {
+                                            "k": "Civis:goTo",
+                                            "s": 6.03909,
+                                            "u": 0.21872,
+                                            "c": [
+                                              {
+                                                "k": "RoomCostMatrix:callbackForRoom",
+                                                "s": 6.04352,
+                                                "u": 0.0025
+                                              },
+                                              {
+                                                "k": "Object:RoomCostMatrix:callback",
+                                                "s": 6.07507,
+                                                "u": 0.00284
+                                              }
+                                            ]
+                                          }
+                                        ]
+                                      },
+                                      {
+                                        "k": "TaskUpgrade:work",
+                                        "s": 6.2645,
+                                        "u": 0.2482,
+                                        "c": [
+                                          {
+                                            "k": "Civis:upgradeController",
+                                            "s": 6.27275,
+                                            "u": 0.23767,
+                                            "c": [
+                                              {
+                                                "k": "Civis:catchIntent",
+                                                "s": 6.49846,
+                                                "u": 0.00985,
+                                                "c": [
+                                                  {
+                                                    "k": "Intents:increment",
+                                                    "s": 6.50278,
+                                                    "u": 0.00335
+                                                  }
+                                                ]
+                                              }
+                                            ]
+                                          }
+                                        ]
+                                      }
+                                    ]
+                                  }
+                                ]
+                              }
+                            ]
+                          },
+                          {
+                            "k": "Civis:run",
+                            "s": 6.52558,
+                            "u": 0.31573,
+                            "c": [
+                              {
+                                "k": "Civis:refresh",
+                                "s": 6.52836,
+                                "u": 0.00247
+                              },
+                              {
+                                "k": "Intents:reset",
+                                "s": 6.56322,
+                                "u": 0.00443
+                              },
+                              {
+                                "k": "Tasks:initialize",
+                                "s": 6.59515,
+                                "u": 0.02882,
+                                "c": [
+                                  {
+                                    "k": "Tasks:initialize",
+                                    "s": 6.60033,
+                                    "u": 0.0211
+                                  }
+                                ]
+                              },
+                              {
+                                "k": "Tasks:initialize",
+                                "s": 6.64551,
+                                "u": 0.00816,
+                                "c": [
+                                  {
+                                    "k": "Tasks:initialize",
+                                    "s": 6.64904,
+                                    "u": 0.00246
+                                  }
+                                ]
+                              },
+                              {
+                                "k": "ControlFlowFIFO:Task:run",
+                                "s": 6.6568,
+                                "u": 0.17825,
+                                "c": [
+                                  {
+                                    "k": "TaskUpgrade:isValid",
+                                    "s": 6.66072,
+                                    "u": 0.01091
+                                  },
+                                  {
+                                    "k": "TaskUpgrade:isValid",
+                                    "s": 6.67554,
+                                    "u": 0.0031
+                                  },
+                                  {
+                                    "k": "TaskUpgrade:Task:run",
+                                    "s": 6.68167,
+                                    "u": 0.15099,
+                                    "c": [
+                                      {
+                                        "k": "TaskUpgrade:isValid",
+                                        "s": 6.68463,
+                                        "u": 0.00267
+                                      },
+                                      {
+                                        "k": "TaskUpgrade:Task:moveToTarget",
+                                        "s": 6.69874,
+                                        "u": 0.13152,
+                                        "c": [
+                                          {
+                                            "k": "Civis:goTo",
+                                            "s": 6.70667,
+                                            "u": 0.12079,
+                                            "c": [
+                                              {
+                                                "k": "RoomCostMatrix:callbackForRoom",
+                                                "s": 6.71069,
+                                                "u": 0.00228
+                                              }
+                                            ]
+                                          }
+                                        ]
+                                      }
+                                    ]
+                                  }
+                                ]
+                              }
+                            ]
+                          },
+                          {
+                            "k": "Civis:run",
+                            "s": 6.84554,
+                            "u": 0.23333,
+                            "c": [
+                              {
+                                "k": "Civis:refresh",
+                                "s": 6.84862,
+                                "u": 0.00239
+                              },
+                              {
+                                "k": "Intents:reset",
+                                "s": 6.85372,
+                                "u": 0.00242
+                              },
+                              {
+                                "k": "Tasks:initialize",
+                                "s": 6.86252,
+                                "u": 0.00985,
+                                "c": [
+                                  {
+                                    "k": "Tasks:initialize",
+                                    "s": 6.86692,
+                                    "u": 0.00327
+                                  }
+                                ]
+                              },
+                              {
+                                "k": "Tasks:initialize",
+                                "s": 6.87675,
+                                "u": 0.00813,
+                                "c": [
+                                  {
+                                    "k": "Tasks:initialize",
+                                    "s": 6.88023,
+                                    "u": 0.00252
+                                  }
+                                ]
+                              },
+                              {
+                                "k": "ControlFlowFIFO:Task:run",
+                                "s": 6.88804,
+                                "u": 0.18573,
+                                "c": [
+                                  {
+                                    "k": "TaskWithdraw:isValid",
+                                    "s": 6.8918,
+                                    "u": 0.02737
+                                  },
+                                  {
+                                    "k": "TaskWithdraw:isValid",
+                                    "s": 6.92335,
+                                    "u": 0.00761
+                                  },
+                                  {
+                                    "k": "TaskWithdraw:Task:run",
+                                    "s": 6.93428,
+                                    "u": 0.13727,
+                                    "c": [
+                                      {
+                                        "k": "TaskWithdraw:isValid",
+                                        "s": 6.93737,
+                                        "u": 0.00597
+                                      },
+                                      {
+                                        "k": "TaskWithdraw:Task:moveToTarget",
+                                        "s": 6.94888,
+                                        "u": 0.12039,
+                                        "c": [
+                                          {
+                                            "k": "Civis:goTo",
+                                            "s": 6.9526,
+                                            "u": 0.11406,
+                                            "c": [
+                                              {
+                                                "k": "RoomCostMatrix:callbackForRoom",
+                                                "s": 6.95635,
+                                                "u": 0.00223
+                                              }
+                                            ]
+                                          }
+                                        ]
+                                      }
+                                    ]
+                                  }
+                                ]
+                              }
+                            ]
+                          }
+                        ]
+                      }
+                    ]
+                  },
+                  {
+                    "k": "ProgramStaticHarvest:Process:run",
+                    "s": 7.13103,
+                    "u": 1.35765,
+                    "c": [
+                      {
+                        "k": "ProgramVillage:getByRoom",
+                        "s": 7.1676,
+                        "u": 0.01454,
+                        "c": [
+                          {
+                            "k": "Process:get",
+                            "s": 7.17216,
+                            "u": 0.00786,
+                            "c": [
+                              {
+                                "k": "Process:initializeProgram",
+                                "s": 7.175,
+                                "u": 0.00269
+                              }
+                            ]
+                          }
+                        ]
+                      },
+                      {
+                        "k": "ProgramVillage:heapLogistics",
+                        "s": 7.20686,
+                        "u": 0.01476,
+                        "c": [
+                          {
+                            "k": "Process:get",
+                            "s": 7.21256,
+                            "u": 0.00701,
+                            "c": [
+                              {
+                                "k": "Process:initializeProgram",
+                                "s": 7.21522,
+                                "u": 0.00227
+                              }
+                            ]
+                          }
+                        ]
+                      },
+                      {
+                        "k": "ProgramVillage:heapLogistics",
+                        "s": 7.22444,
+                        "u": 0.01191,
+                        "c": [
+                          {
+                            "k": "Process:get",
+                            "s": 7.22739,
+                            "u": 0.00693,
+                            "c": [
+                              {
+                                "k": "Process:initializeProgram",
+                                "s": 7.22999,
+                                "u": 0.00218
+                              }
+                            ]
+                          }
+                        ]
+                      },
+                      {
+                        "k": "ProgramHeapRoomLogistics:announceAvailable",
+                        "s": 7.24043,
+                        "u": 0.00769
+                      },
+                      {
+                        "k": "ProgramVillage:heapLogistics",
+                        "s": 7.25358,
+                        "u": 0.01195,
+                        "c": [
+                          {
+                            "k": "Process:get",
+                            "s": 7.25669,
+                            "u": 0.00677,
+                            "c": [
+                              {
+                                "k": "Process:initializeProgram",
+                                "s": 7.25923,
+                                "u": 0.00217
+                              }
+                            ]
+                          }
+                        ]
+                      },
+                      {
+                        "k": "ProgramVillage:heapLogistics",
+                        "s": 7.26808,
+                        "u": 0.01172,
+                        "c": [
+                          {
+                            "k": "Process:get",
+                            "s": 7.27091,
+                            "u": 0.00685,
+                            "c": [
+                              {
+                                "k": "Process:initializeProgram",
+                                "s": 7.27357,
+                                "u": 0.00214
+                              }
+                            ]
+                          }
+                        ]
+                      },
+                      {
+                        "k": "ProgramHeapRoomLogistics:announceAvailable",
+                        "s": 7.28465,
+                        "u": 0.00395
+                      },
+                      {
+                        "k": "Civis:run",
+                        "s": 7.30628,
+                        "u": 1.15847,
+                        "c": [
+                          {
+                            "k": "Civis:refresh",
+                            "s": 7.30896,
+                            "u": 0.00251
+                          },
+                          {
+                            "k": "Intents:reset",
+                            "s": 7.31418,
+                            "u": 0.00252
+                          },
+                          {
+                            "k": "Tasks:initialize",
+                            "s": 7.32407,
+                            "u": 0.04384,
+                            "c": [
+                              {
+                                "k": "Tasks:initialize",
+                                "s": 7.33475,
+                                "u": 0.00658
+                              },
+                              {
+                                "k": "Tasks:initialize",
+                                "s": 7.34437,
+                                "u": 0.01073
+                              },
+                              {
+                                "k": "Tasks:initialize",
+                                "s": 7.3583,
+                                "u": 0.00557
+                              }
+                            ]
+                          },
+                          {
+                            "k": "Tasks:initialize",
+                            "s": 7.37286,
+                            "u": 0.02021,
+                            "c": [
+                              {
+                                "k": "Tasks:initialize",
+                                "s": 7.37659,
+                                "u": 0.00251
+                              },
+                              {
+                                "k": "Tasks:initialize",
+                                "s": 7.38182,
+                                "u": 0.00381
+                              },
+                              {
+                                "k": "Tasks:initialize",
+                                "s": 7.38835,
+                                "u": 0.00248
+                              }
+                            ]
+                          },
+                          {
+                            "k": "ControlFlowLoop:Task:run",
+                            "s": 7.39943,
+                            "u": 1.05691,
+                            "c": [
+                              {
+                                "k": "TaskGoto:isValid",
+                                "s": 7.41423,
+                                "u": 0.01392
+                              },
+                              {
+                                "k": "TaskStaticHarvest:isValid",
+                                "s": 7.43622,
+                                "u": 0.04089,
+                                "c": [
+                                  {
+                                    "k": "Civis:getBodyparts",
+                                    "s": 7.44066,
+                                    "u": 0.01084
+                                  }
+                                ]
+                              },
+                              {
+                                "k": "TaskStaticHarvest:Task:run",
+                                "s": 7.48273,
+                                "u": 0.3985,
+                                "c": [
+                                  {
+                                    "k": "TaskStaticHarvest:isValid",
+                                    "s": 7.48717,
+                                    "u": 0.00796
+                                  },
+                                  {
+                                    "k": "TaskStaticHarvest:Task:moveToTarget",
+                                    "s": 7.51295,
+                                    "u": 0.28865,
+                                    "c": [
+                                      {
+                                        "k": "Civis:goTo",
+                                        "s": 7.52553,
+                                        "u": 0.27286,
+                                        "c": [
+                                          {
+                                            "k": "RoomCostMatrix:callbackForRoom",
+                                            "s": 7.52952,
+                                            "u": 0.00245
+                                          },
+                                          {
+                                            "k": "Object:RoomCostMatrix:callback",
+                                            "s": 7.56189,
+                                            "u": 0.00266
+                                          }
+                                        ]
+                                      }
+                                    ]
+                                  },
+                                  {
+                                    "k": "TaskStaticHarvest:work",
+                                    "s": 7.80686,
+                                    "u": 0.07172,
+                                    "c": [
+                                      {
+                                        "k": "ProgramVillage:getByRoom",
+                                        "s": 7.81371,
+                                        "u": 0.0122,
+                                        "c": [
+                                          {
+                                            "k": "Process:get",
+                                            "s": 7.81671,
+                                            "u": 0.00711,
+                                            "c": [
+                                              {
+                                                "k": "Process:initializeProgram",
+                                                "s": 7.81908,
+                                                "u": 0.00238
+                                              }
+                                            ]
+                                          }
+                                        ]
+                                      },
+                                      {
+                                        "k": "ProgramVillage:primaryLink",
+                                        "s": 7.8322,
+                                        "u": 0.00245
+                                      }
+                                    ]
+                                  }
+                                ]
+                              },
+                              {
+                                "k": "TaskHarvest:isValid",
+                                "s": 7.8919,
+                                "u": 0.00264
+                              },
+                              {
+                                "k": "TaskHarvest:Task:run",
+                                "s": 7.89861,
+                                "u": 0.55508,
+                                "c": [
+                                  {
+                                    "k": "TaskHarvest:isValid",
+                                    "s": 7.90271,
+                                    "u": 0.00218
+                                  },
+                                  {
+                                    "k": "TaskHarvest:Task:moveToTarget",
+                                    "s": 7.92219,
+                                    "u": 0.23362,
+                                    "c": [
+                                      {
+                                        "k": "Civis:goTo",
+                                        "s": 7.93405,
+                                        "u": 0.2191,
+                                        "c": [
+                                          {
+                                            "k": "RoomCostMatrix:callbackForRoom",
+                                            "s": 7.93745,
+                                            "u": 0.00239
+                                          },
+                                          {
+                                            "k": "Object:RoomCostMatrix:callback",
+                                            "s": 7.96841,
+                                            "u": 0.00247
+                                          }
+                                        ]
+                                      }
+                                    ]
+                                  },
+                                  {
+                                    "k": "TaskHarvest:work",
+                                    "s": 8.15983,
+                                    "u": 0.29174,
+                                    "c": [
+                                      {
+                                        "k": "Civis:harvest",
+                                        "s": 8.21636,
+                                        "u": 0.23263,
+                                        "c": [
+                                          {
+                                            "k": "Civis:catchIntent",
+                                            "s": 8.43794,
+                                            "u": 0.00889,
+                                            "c": [
+                                              {
+                                                "k": "Intents:increment",
+                                                "s": 8.44165,
+                                                "u": 0.0029
+                                              }
+                                            ]
+                                          }
+                                        ]
+                                      }
+                                    ]
+                                  }
+                                ]
+                              }
+                            ]
+                          }
+                        ]
+                      }
+                    ]
+                  },
+                  {
+                    "k": "ProgramStaticHarvest:Process:run",
+                    "s": 8.50633,
+                    "u": 0.98736,
+                    "c": [
+                      {
+                        "k": "ProgramVillage:getByRoom",
+                        "s": 8.56078,
+                        "u": 0.01119,
+                        "c": [
+                          {
+                            "k": "Process:get",
+                            "s": 8.56339,
+                            "u": 0.0065,
+                            "c": [
+                              {
+                                "k": "Process:initializeProgram",
+                                "s": 8.56551,
+                                "u": 0.00228
+                              }
+                            ]
+                          }
+                        ]
+                      },
+                      {
+                        "k": "ProgramVillage:heapLogistics",
+                        "s": 8.58789,
+                        "u": 0.01158,
+                        "c": [
+                          {
+                            "k": "Process:get",
+                            "s": 8.59111,
+                            "u": 0.00635,
+                            "c": [
+                              {
+                                "k": "Process:initializeProgram",
+                                "s": 8.59324,
+                                "u": 0.00212
+                              }
+                            ]
+                          }
+                        ]
+                      },
+                      {
+                        "k": "ProgramVillage:heapLogistics",
+                        "s": 8.6018,
+                        "u": 0.0105,
+                        "c": [
+                          {
+                            "k": "Process:get",
+                            "s": 8.60424,
+                            "u": 0.00608,
+                            "c": [
+                              {
+                                "k": "Process:initializeProgram",
+                                "s": 8.60631,
+                                "u": 0.002
+                              }
+                            ]
+                          }
+                        ]
+                      },
+                      {
+                        "k": "ProgramHeapRoomLogistics:announceAvailable",
+                        "s": 8.61813,
+                        "u": 0.00648
+                      },
+                      {
+                        "k": "ProgramVillage:heapLogistics",
+                        "s": 8.629,
+                        "u": 0.01061,
+                        "c": [
+                          {
+                            "k": "Process:get",
+                            "s": 8.63153,
+                            "u": 0.00612,
+                            "c": [
+                              {
+                                "k": "Process:initializeProgram",
+                                "s": 8.6336,
+                                "u": 0.00202
+                              }
+                            ]
+                          }
+                        ]
+                      },
+                      {
+                        "k": "ProgramVillage:heapLogistics",
+                        "s": 8.64185,
+                        "u": 0.01043,
+                        "c": [
+                          {
+                            "k": "Process:get",
+                            "s": 8.64424,
+                            "u": 0.00606,
+                            "c": [
+                              {
+                                "k": "Process:initializeProgram",
+                                "s": 8.64631,
+                                "u": 0.00198
+                              }
+                            ]
+                          }
+                        ]
+                      },
+                      {
+                        "k": "ProgramHeapRoomLogistics:announceAvailable",
+                        "s": 8.65487,
+                        "u": 0.00355
+                      },
+                      {
+                        "k": "Civis:run",
+                        "s": 8.67267,
+                        "u": 0.80468,
+                        "c": [
+                          {
+                            "k": "Civis:refresh",
+                            "s": 8.67493,
+                            "u": 0.00232
+                          },
+                          {
+                            "k": "Intents:reset",
+                            "s": 8.67957,
+                            "u": 0.0024
+                          },
+                          {
+                            "k": "Tasks:initialize",
+                            "s": 8.6889,
+                            "u": 0.02249,
+                            "c": [
+                              {
+                                "k": "Tasks:initialize",
+                                "s": 8.69328,
+                                "u": 0.00316
+                              },
+                              {
+                                "k": "Tasks:initialize",
+                                "s": 8.69882,
+                                "u": 0.00553
+                              },
+                              {
+                                "k": "Tasks:initialize",
+                                "s": 8.7066,
+                                "u": 0.00256
+                              }
+                            ]
+                          },
+                          {
+                            "k": "Tasks:initialize",
+                            "s": 8.7155,
+                            "u": 0.01776,
+                            "c": [
+                              {
+                                "k": "Tasks:initialize",
+                                "s": 8.71847,
+                                "u": 0.00233
+                              },
+                              {
+                                "k": "Tasks:initialize",
+                                "s": 8.72296,
+                                "u": 0.00338
+                              },
+                              {
+                                "k": "Tasks:initialize",
+                                "s": 8.72891,
+                                "u": 0.00227
+                              }
+                            ]
+                          },
+                          {
+                            "k": "ControlFlowLoop:Task:run",
+                            "s": 8.73594,
+                            "u": 0.7368,
+                            "c": [
+                              {
+                                "k": "TaskGoto:isValid",
+                                "s": 8.74216,
+                                "u": 0.01286
+                              },
+                              {
+                                "k": "TaskStaticHarvest:isValid",
+                                "s": 8.75874,
+                                "u": 0.03451,
+                                "c": [
+                                  {
+                                    "k": "Civis:getBodyparts",
+                                    "s": 8.76123,
+                                    "u": 0.00849
+                                  }
+                                ]
+                              },
+                              {
+                                "k": "TaskStaticHarvest:Task:run",
+                                "s": 8.79615,
+                                "u": 0.24786,
+                                "c": [
+                                  {
+                                    "k": "TaskStaticHarvest:isValid",
+                                    "s": 8.79892,
+                                    "u": 0.00525
+                                  },
+                                  {
+                                    "k": "TaskStaticHarvest:Task:moveToTarget",
+                                    "s": 8.81646,
+                                    "u": 0.16933,
+                                    "c": [
+                                      {
+                                        "k": "Civis:goTo",
+                                        "s": 8.82331,
+                                        "u": 0.1601,
+                                        "c": [
+                                          {
+                                            "k": "RoomCostMatrix:callbackForRoom",
+                                            "s": 8.82673,
+                                            "u": 0.00237
+                                          },
+                                          {
+                                            "k": "Object:RoomCostMatrix:callback",
+                                            "s": 8.85633,
+                                            "u": 0.00232
+                                          }
+                                        ]
+                                      }
+                                    ]
+                                  },
+                                  {
+                                    "k": "TaskStaticHarvest:work",
+                                    "s": 8.9885,
+                                    "u": 0.05324,
+                                    "c": [
+                                      {
+                                        "k": "ProgramVillage:getByRoom",
+                                        "s": 8.99392,
+                                        "u": 0.01104,
+                                        "c": [
+                                          {
+                                            "k": "Process:get",
+                                            "s": 8.99641,
+                                            "u": 0.00659,
+                                            "c": [
+                                              {
+                                                "k": "Process:initializeProgram",
+                                                "s": 8.9986,
+                                                "u": 0.0023
+                                              }
+                                            ]
+                                          }
+                                        ]
+                                      },
+                                      {
+                                        "k": "ProgramVillage:primaryLink",
+                                        "s": 9.00774,
+                                        "u": 0.00238
+                                      }
+                                    ]
+                                  }
+                                ]
+                              },
+                              {
+                                "k": "TaskHarvest:isValid",
+                                "s": 9.04912,
+                                "u": 0.00258
+                              },
+                              {
+                                "k": "TaskHarvest:Task:run",
+                                "s": 9.05434,
+                                "u": 0.41601,
+                                "c": [
+                                  {
+                                    "k": "TaskHarvest:isValid",
+                                    "s": 9.05703,
+                                    "u": 0.00216
+                                  },
+                                  {
+                                    "k": "TaskHarvest:Task:moveToTarget",
+                                    "s": 9.07025,
+                                    "u": 0.15352,
+                                    "c": [
+                                      {
+                                        "k": "Civis:goTo",
+                                        "s": 9.07688,
+                                        "u": 0.14432,
+                                        "c": [
+                                          {
+                                            "k": "RoomCostMatrix:callbackForRoom",
+                                            "s": 9.08005,
+                                            "u": 0.00229
+                                          },
+                                          {
+                                            "k": "Object:RoomCostMatrix:callback",
+                                            "s": 9.10803,
+                                            "u": 0.00232
+                                          }
+                                        ]
+                                      }
+                                    ]
+                                  },
+                                  {
+                                    "k": "TaskHarvest:work",
+                                    "s": 9.22649,
+                                    "u": 0.24174,
+                                    "c": [
+                                      {
+                                        "k": "Civis:harvest",
+                                        "s": 9.24136,
+                                        "u": 0.2244,
+                                        "c": [
+                                          {
+                                            "k": "Civis:catchIntent",
+                                            "s": 9.45526,
+                                            "u": 0.00835,
+                                            "c": [
+                                              {
+                                                "k": "Intents:increment",
+                                                "s": 9.45863,
+                                                "u": 0.00282
+                                              }
+                                            ]
+                                          }
+                                        ]
+                                      }
+                                    ]
+                                  }
+                                ]
+                              }
+                            ]
+                          }
+                        ]
+                      }
+                    ]
+                  },
+                  {
+                    "k": "ProgramRoomRemoteHarvest:Process:run",
+                    "s": 9.5019,
+                    "u": 0.51053,
+                    "c": [
+                      {
+                        "k": "ProgramRoomRemoteHarvest:execute",
+                        "s": 9.50836,
+                        "u": 0.16693,
+                        "c": [
+                          {
+                            "k": "ProgramRoomRemoteHarvest:flagUpdate",
+                            "s": 9.51102,
+                            "u": 0.00263
+                          },
+                          {
+                            "k": "ProgramRoomRemoteHarvest:executeHarvestRoom",
+                            "s": 9.51846,
+                            "u": 0.04441,
+                            "c": [
+                              {
+                                "k": "ProgramRoomRemoteHarvest:harvestRoom",
+                                "s": 9.53588,
+                                "u": 0.02406
+                              }
+                            ]
+                          },
+                          {
+                            "k": "ProgramRoomRemoteHarvest:visual",
+                            "s": 9.58501,
+                            "u": 0.07069
+                          }
+                        ]
+                      },
+                      {
+                        "k": "Civis:run",
+                        "s": 9.70606,
+                        "u": 0.18395,
+                        "c": [
+                          {
+                            "k": "Civis:refresh",
+                            "s": 9.70859,
+                            "u": 0.00235
+                          },
+                          {
+                            "k": "Intents:reset",
+                            "s": 9.71332,
+                            "u": 0.00303
+                          },
+                          {
+                            "k": "Tasks:initialize",
+                            "s": 9.72781,
+                            "u": 0.03723,
+                            "c": [
+                              {
+                                "k": "Tasks:initialize",
+                                "s": 9.73188,
+                                "u": 0.0031
+                              },
+                              {
+                                "k": "Tasks:initialize",
+                                "s": 9.73742,
+                                "u": 0.02513
+                              }
+                            ]
+                          },
+                          {
+                            "k": "Tasks:initialize",
+                            "s": 9.76955,
+                            "u": 0.02581,
+                            "c": [
+                              {
+                                "k": "Tasks:initialize",
+                                "s": 9.78616,
+                                "u": 0.00263
+                              },
+                              {
+                                "k": "Tasks:initialize",
+                                "s": 9.79102,
+                                "u": 0.0023
+                              }
+                            ]
+                          },
+                          {
+                            "k": "ControlFlowLoop:Task:run",
+                            "s": 9.79804,
+                            "u": 0.08384,
+                            "c": [
+                              {
+                                "k": "TaskHarvest:isValid",
+                                "s": 9.80538,
+                                "u": 0.03113
+                              },
+                              {
+                                "k": "TaskTransfer:isValid",
+                                "s": 9.84532,
+                                "u": 0.03331
+                              }
+                            ]
+                          }
+                        ]
+                      },
+                      {
+                        "k": "Civis:run",
+                        "s": 9.89292,
+                        "u": 0.09951,
+                        "c": [
+                          {
+                            "k": "Civis:refresh",
+                            "s": 9.89512,
+                            "u": 0.00232
+                          },
+                          {
+                            "k": "Intents:reset",
+                            "s": 9.89967,
+                            "u": 0.00236
+                          },
+                          {
+                            "k": "Tasks:initialize",
+                            "s": 9.90955,
+                            "u": 0.01302,
+                            "c": [
+                              {
+                                "k": "Tasks:initialize",
+                                "s": 9.91319,
+                                "u": 0.00259
+                              },
+                              {
+                                "k": "Tasks:initialize",
+                                "s": 9.91808,
+                                "u": 0.00235
+                              }
+                            ]
+                          },
+                          {
+                            "k": "Tasks:initialize",
+                            "s": 9.92635,
+                            "u": 0.01174,
+                            "c": [
+                              {
+                                "k": "Tasks:initialize",
+                                "s": 9.92908,
+                                "u": 0.00225
+                              },
+                              {
+                                "k": "Tasks:initialize",
+                                "s": 9.93357,
+                                "u": 0.00228
+                              }
+                            ]
+                          },
+                          {
+                            "k": "ControlFlowLoop:Task:run",
+                            "s": 9.94068,
+                            "u": 0.04653,
+                            "c": [
+                              {
+                                "k": "TaskTransfer:isValid",
+                                "s": 9.94564,
+                                "u": 0.02087
+                              },
+                              {
+                                "k": "TaskHarvest:isValid",
+                                "s": 9.97013,
+                                "u": 0.01428
+                              }
+                            ]
+                          }
+                        ]
+                      }
+                    ]
+                  },
+                  {
+                    "k": "ProgramBlueprint:Process:run",
+                    "s": 10.01902,
+                    "u": 0.19954
+                  }
+                ]
+              },
+              {
+                "k": "ProgramState:Process:run",
+                "s": 10.25026,
+                "u": 0.05194,
+                "c": [
+                  {
+                    "k": "ProgramState:execute",
+                    "s": 10.25676,
+                    "u": 0.02313,
+                    "c": [
+                      {
+                        "k": "SavedState:loop",
+                        "s": 10.26097,
+                        "u": 0.01657,
+                        "c": [
+                          {
+                            "k": "SavedState:stats",
+                            "s": 10.26459,
+                            "u": 0.01071
+                          }
+                        ]
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "k": "RoomCostMatrix:loop",
+        "s": 10.32062,
+        "u": 0.00293
+      },
+      {
+        "k": "BaseCollector:loop",
+        "s": 11.21928,
+        "u": 0.01263,
+        "c": [
+          {
+            "k": "BaseCollector:collect",
+            "s": 11.22249,
+            "u": 0.00309
           }
         ]
       }
     ],
-    "um":1714101797922,
-    "marks":[
-
-    ]
+    "um": 1714104969185,
+    "marks": []
   }
 ]
