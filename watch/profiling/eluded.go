@@ -1,9 +1,10 @@
-package profile
+package profiling
 
 import (
 	"bytes"
+	"time"
 
-	"github.com/Emyrk/screeps-watcher/watch/profile/eluded"
+	"github.com/Emyrk/screeps-watcher/watch/profiling/eluded"
 	"github.com/google/pprof/profile"
 )
 
@@ -35,7 +36,7 @@ func New() *Converter {
 			KeepFrames: "",
 
 			// TODO: @emyrk get a more accurate timestamp from the client.
-			TimeNanos: 0,
+			TimeNanos: time.Now().UnixNano(),
 			// TODO: @emyrk this should be included to indicate how long the
 			// 		profile ran. The amount of time run should be the CPU_LIMIT.
 			//		If the tick exceeds the profile limit, that tick full duration
@@ -66,7 +67,6 @@ func (c *Converter) Encode() ([]byte, error) {
 
 func (c *Converter) ConvertSingle(elu eluded.Profile) {
 	c.recurseFunctions(elu, nil)
-
 }
 
 func (c *Converter) recurseFunctions(elu eluded.Profile, sample *profile.Sample) {
@@ -94,7 +94,9 @@ func (c *Converter) recurseFunctions(elu eluded.Profile, sample *profile.Sample)
 			Location: prepend(callLoc, sample.Location),
 			Value:    []int64{call.SelfCostNano(), 1},
 		}
-		c.protobuf.Sample = append(c.protobuf.Sample, callSample)
+		if call.SelfCostNano() > 10000 {
+			c.protobuf.Sample = append(c.protobuf.Sample, callSample)
+		}
 		c.recurseFunctions(call, callSample)
 	}
 }

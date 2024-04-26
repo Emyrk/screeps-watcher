@@ -16,10 +16,6 @@ import (
 	"github.com/coder/serpent"
 )
 
-type WatchConfig struct {
-	Servers []watch.WatcherOptions `yaml:"servers"`
-}
-
 func (r *Root) WatchCmd() *serpent.Command {
 	var (
 		configPath string
@@ -47,7 +43,7 @@ func (r *Root) WatchCmd() *serpent.Command {
 				return fmt.Errorf("read config: %w", err)
 			}
 
-			var config WatchConfig
+			var config watch.WatchConfig
 			err = yaml.Unmarshal(yamlData, &config)
 			if err != nil {
 				logger.Error().Err(err).Str("config", configPath).Msg("unmarshal config")
@@ -56,7 +52,7 @@ func (r *Root) WatchCmd() *serpent.Command {
 
 			watchers := make([]*watch.Watcher, 0, len(config.Servers))
 			for _, server := range config.Servers {
-				watcher, err := watch.New(server, logger.With().Str("service", "watcher").Logger())
+				watcher, err := watch.New(config, server, logger.With().Str("service", "watcher").Logger())
 				if err != nil {
 					logger.Error().Err(err).Str("server", server.Name).Msg("new watcher")
 					return fmt.Errorf("new watcher: %w", err)
@@ -87,7 +83,6 @@ func (r *Root) WatchCmd() *serpent.Command {
 			go func() {
 				time.Sleep(time.Second * 10)
 				pprof2.StopCPUProfile()
-				fmt.Println("DONE")
 			}()
 			//go func() {
 			//	mux := http.NewServeMux()

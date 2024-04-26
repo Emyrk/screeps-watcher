@@ -65,3 +65,5 @@ site/stats/
 .envrc
 .env
 config.yaml
+
+*.pprof

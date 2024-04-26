@@ -8,14 +8,14 @@ import (
 var Example []Profile
 
 func init() {
-	err := json.Unmarshal([]byte(example), &Example)
+	err := json.Unmarshal([]byte(ExampleData), &Example)
 	if err != nil {
 		panic(err)
 	}
 }
 
 //go:embed dump.json
-var example string
+var ExampleData string
 
 type Profile struct {
 	Key      string    `json:"key"`

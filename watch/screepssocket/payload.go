@@ -5,6 +5,7 @@ import (
 	"encoding/json"
 	"fmt"
 	"strconv"
+	"strings"
 )
 
 // batchPayload handles payloads as an array of string serialized json objects.
@@ -18,9 +19,12 @@ func batchPayload(ctx context.Context, data []byte) ([]json.RawMessage, error) {
 	deserialized := make([]json.RawMessage, 0, len(array))
 	for _, msgJson := range array {
 		var msg json.RawMessage
+
 		unquoted, err := strconv.Unquote(string(msgJson))
 		if err != nil {
-			return nil, fmt.Errorf("unquote message %q: %w", string(msgJson), err)
+			// UTF16 really messes this up. Have this dumb backup that works most
+			// of the time.
+			unquoted = dumbUnquote(string(msgJson))
 		}
 
 		err = json.Unmarshal([]byte(unquoted), &msg)
@@ -37,4 +41,10 @@ func batchPayload(ctx context.Context, data []byte) ([]json.RawMessage, error) {
 	}
 
 	return deserialized, nil
+}
+
+func dumbUnquote(str string) string {
+	str = strings.Replace(str, `\"`, `"`, -1)
+	return strings.Trim(str, `"`)
+
 }

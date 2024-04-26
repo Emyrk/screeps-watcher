@@ -10,12 +10,22 @@ import (
 	"github.com/Emyrk/screeps-watcher/watch/auth"
 	"github.com/Emyrk/screeps-watcher/watch/market"
 	"github.com/Emyrk/screeps-watcher/watch/memcollector"
+	"github.com/Emyrk/screeps-watcher/watch/profiling"
 	"github.com/Emyrk/screeps-watcher/watch/screepssocket"
 	"github.com/prometheus/client_golang/prometheus"
 	"github.com/rs/zerolog"
 )
 
 var _ prometheus.Collector = (*Watcher)(nil)
+
+type WatchConfig struct {
+	Pyroscope PyroscopeSettings `yaml:"pyroscope"`
+	Servers   []WatcherOptions  `yaml:"servers"`
+}
+
+type PyroscopeSettings struct {
+	Address string `yaml:"address"`
+}
 
 type WatcherOptions struct {
 	Name     string `yaml:"name"`
@@ -25,19 +35,40 @@ type WatcherOptions struct {
 	Token    string `yaml:"token"`
 
 	// Each target is a single scrape endpoint
-	Targets           []MemoryTargets `yaml:"targets"`
+	MemorySegments    []MemoryTargets `yaml:"targets"`
 	Markets           []MarketTargets `yaml:"markets"`
-	ScrapeInterval    time.Duration   `yaml:"memory_scrape_interval"`
+	MetricsInterval   time.Duration   `yaml:"metrics_scrape_interval"`
 	MarketInterval    time.Duration   `yaml:"market_scrape_interval"`
 	WebsocketChannels []string        `yaml:"websocket_channels"`
 }
 
+type ProfileTarget struct {
+	Shard     string `yaml:"shard"`
+	SegmentID int    `yaml:"segment"`
+}
+
 type MemoryTargets struct {
 	Shard       string            `yaml:"shard"`
-	SegmentID   int               `yaml:"segment"`
+	Metrics     *int              `yaml:"metrics_segment"`
+	Profile     *int              `yaml:"profile_segment"`
 	ConstLabels prometheus.Labels `yaml:"constant_labels"`
 
-	collector *memcollector.Collector
+	serverName string
+	collector  *memcollector.Collector
+}
+
+func (m MemoryTargets) MetricSegment() int {
+	if m.Metrics == nil {
+		return -1
+	}
+	return *m.Metrics
+}
+
+func (m MemoryTargets) ProfileSegment() int {
+	if m.Profile == nil {
+		return -1
+	}
+	return *m.Profile
 }
 
 type MarketTargets struct {
@@ -48,11 +79,11 @@ type MarketTargets struct {
 // Watcher will watch a screeps server and it's configured shards for
 // memory stats and logs.
 type Watcher struct {
-	Name                 string
-	Username             string
-	URL                  *url.URL
-	MemorySegmentTargets []*MemoryTargets
-	Markets              []MarketTargets
+	Name           string
+	Username       string
+	URL            *url.URL
+	MemorySegments []*MemoryTargets
+	Markets        []MarketTargets
 
 	// TODO:
 	AuthMethod auth.Method
@@ -60,6 +91,7 @@ type Watcher struct {
 
 	logger            zerolog.Logger
 	memoryInterval    time.Duration
+	profileInterval   time.Duration
 	marketInterval    time.Duration
 	reg               *prometheus.Registry
 	websocketChannels []string
@@ -69,12 +101,12 @@ type Watcher struct {
 	marketApiRateLimitUntil     time.Time
 }
 
-func New(opts WatcherOptions, logger zerolog.Logger) (*Watcher, error) {
+func New(global WatchConfig, opts WatcherOptions, logger zerolog.Logger) (*Watcher, error) {
 	if opts.URL == "" {
 		return nil, fmt.Errorf("missing url field for server")
 	}
 
-	if len(opts.Targets) == 0 {
+	if len(opts.MemorySegments) == 0 {
 		return nil, fmt.Errorf("no targets configured for %q", opts.Name)
 	}
 
@@ -100,8 +132,8 @@ func New(opts WatcherOptions, logger zerolog.Logger) (*Watcher, error) {
 		}
 	}
 
-	if opts.ScrapeInterval == 0 {
-		opts.ScrapeInterval = time.Minute
+	if opts.MetricsInterval == 0 {
+		opts.MetricsInterval = time.Minute
 	}
 
 	if opts.MarketInterval == 0 {
@@ -109,9 +141,16 @@ func New(opts WatcherOptions, logger zerolog.Logger) (*Watcher, error) {
 	}
 
 	reg := prometheus.NewRegistry()
+	var pusher *profiling.PyroscopePusher
+	if global.Pyroscope.Address != "" {
+		pusher, err = profiling.NewPusher(global.Pyroscope.Address, logger.With().Str("server", "pyroscope_pusher").Logger())
+		if err != nil {
+			return nil, fmt.Errorf("could not create profiling pusher: %w", err)
+		}
+	}
 
-	tgts := make([]*MemoryTargets, 0, len(opts.Targets))
-	for _, t := range opts.Targets {
+	tgts := make([]*MemoryTargets, 0, len(opts.MemorySegments))
+	for _, t := range opts.MemorySegments {
 		if t.Shard == "" {
 			t.Shard = "none"
 		}
@@ -127,13 +166,15 @@ func New(opts WatcherOptions, logger zerolog.Logger) (*Watcher, error) {
 		}
 
 		tgt := &MemoryTargets{
-			Shard:     t.Shard,
-			SegmentID: t.SegmentID,
+			Shard:      t.Shard,
+			Metrics:    t.Metrics,
+			Profile:    t.Profile,
+			serverName: opts.Name,
 			collector: memcollector.New(logger.
 				With().
 				Str("username", t.Shard).
 				Str("shard", t.Shard).
-				Logger(), "screeps_memory", constantLabels),
+				Logger(), "screeps_memory", constantLabels).WithPusher(pusher),
 		}
 		tgts = append(tgts, tgt)
 		err := reg.Register(tgt.collector)
@@ -143,17 +184,17 @@ func New(opts WatcherOptions, logger zerolog.Logger) (*Watcher, error) {
 	}
 
 	return &Watcher{
-		Name:                 opts.Name,
-		Username:             opts.Username,
-		URL:                  u,
-		MemorySegmentTargets: tgts,
-		Markets:              opts.Markets,
-		AuthMethod:           authMethod,
-		cli:                  http.DefaultClient,
-		memoryInterval:       opts.ScrapeInterval,
-		marketInterval:       opts.MarketInterval,
-		reg:                  reg,
-		websocketChannels:    opts.WebsocketChannels,
+		Name:              opts.Name,
+		Username:          opts.Username,
+		URL:               u,
+		MemorySegments:    tgts,
+		Markets:           opts.Markets,
+		AuthMethod:        authMethod,
+		cli:               http.DefaultClient,
+		memoryInterval:    opts.MetricsInterval,
+		marketInterval:    opts.MarketInterval,
+		reg:               reg,
+		websocketChannels: opts.WebsocketChannels,
 		logger: logger.With().
 			Str("username", opts.Username).
 			Str("server", opts.Name).
@@ -170,7 +211,7 @@ func (w *Watcher) Collect(metrics chan<- prometheus.Metric) {
 }
 
 func (w *Watcher) Watch(ctx context.Context) {
-	go w.WatchMemory(ctx)
+	go w.WatchMetrics(ctx)
 	go w.WatchMarket(ctx)
 	go w.WatchWebsocket(ctx)
 }
@@ -194,9 +235,9 @@ func (w *Watcher) WatchWebsocket(ctx context.Context) {
 	w.reg.MustRegister(sock)
 }
 
-func (w *Watcher) WatchMemory(ctx context.Context) {
+func (w *Watcher) WatchMetrics(ctx context.Context) {
 	ticker := time.NewTicker(w.memoryInterval)
-	logger := w.logger.With().Str("data", "memory-segment").Logger()
+	logger := w.logger.With().Str("data", "metrics-memory-segment").Logger()
 	for {
 		if w.memorySegmentRateLimitUntil.After(time.Now()) {
 			// Skipping due to rate limit
@@ -204,13 +245,23 @@ func (w *Watcher) WatchMemory(ctx context.Context) {
 			continue
 		}
 
-		for _, target := range w.MemorySegmentTargets {
-			count, size := w.scrapeMemory(ctx, target)
+		for _, target := range w.MemorySegments {
+			var metricCount, metricSize = -1, -1
+			var profileCount, profileSize = -1, -1
+			if target.MetricSegment() >= 0 {
+				metricCount, metricSize = w.scrapeMetrics(ctx, target)
+			}
+			if target.ProfileSegment() >= 0 {
+				profileCount, profileSize = w.scrapeProfile(ctx, target)
+			}
 			logger.Info().
-				Int("segment_size", size).
-				Int("segment", target.SegmentID).
+				Int("metric_segment_size", metricSize).
+				Int("metric_count", metricCount).
+				Int("profile_segment_size", profileSize).
+				Int("profile_count", profileCount).
+				Int("metrics_segment", target.MetricSegment()).
+				Int("profile_segment", target.ProfileSegment()).
 				Str("shard", target.Shard).
-				Int("metric_count", count).
 				Msg("scrape target complete")
 		}
 
@@ -331,18 +382,43 @@ func (w *Watcher) scrapeMarket(ctx context.Context, target *MarketTargets) (*mar
 	return stats.Today()
 }
 
-func (w *Watcher) scrapeMemory(ctx context.Context, target *MemoryTargets) (int, int) {
+func (w *Watcher) scrapeProfile(ctx context.Context, target *MemoryTargets) (int, int) {
 	logger := w.logger.With().
 		Str("shard", target.Shard).
-		Int("segment", target.SegmentID).Logger()
+		Int("segment", target.ProfileSegment()).Logger()
 
-	data, size, err := w.MemorySegment(ctx, target.SegmentID, target.Shard)
+	if !target.collector.SupportsProfiling() {
+		logger.Error().Msg("profile collector not supported")
+	}
+
+	data, size, err := w.MemorySegment(ctx, target.ProfileSegment(), target.Shard)
 	if err != nil {
-		logger.Error().Msg("failed to get memory segment")
+		logger.Error().Msg("failed to get profile memory segment")
 		return 0, size
 	}
 
-	count, err := target.collector.SetMemory(data)
+	count, err := target.collector.SetProfileMemory(fmt.Sprintf("screeps_%s_%s", target.serverName, target.Shard), data)
+	if err != nil {
+		logger.Error().
+			Err(err).
+			Int("decoded_size", size).
+			Msg("failed to set memory metrics")
+	}
+	return count, size
+}
+
+func (w *Watcher) scrapeMetrics(ctx context.Context, target *MemoryTargets) (int, int) {
+	logger := w.logger.With().
+		Str("shard", target.Shard).
+		Int("segment", target.MetricSegment()).Logger()
+
+	data, size, err := w.MemorySegment(ctx, target.MetricSegment(), target.Shard)
+	if err != nil {
+		logger.Error().Msg("failed to get metric memory segment")
+		return 0, size
+	}
+
+	count, err := target.collector.SetMetricMemory(data)
 	if err != nil {
 		logger.Error().
 			Err(err).

@@ -28,7 +28,7 @@ func TestCollector(t *testing.T) {
 	data, err := os.ReadFile("testdata/full/memory.json")
 	require.NoError(t, err)
 
-	count, err := c.SetMemory(data)
+	count, err := c.SetMetricMemory(data)
 	require.NoError(t, err)
 	require.Greater(t, count, 100)
 
@@ -63,7 +63,7 @@ func TestGoldenFiles(t *testing.T) {
 			c.SetNow(func() time.Time {
 				return time.Date(2021, 1, 1, 0, 0, 0, 0, time.UTC)
 			})
-			_, err = c.SetMemory(memoryJSON)
+			_, err = c.SetMetricMemory(memoryJSON)
 			require.NoError(t, err)
 
 			reg := prometheus.NewRegistry()

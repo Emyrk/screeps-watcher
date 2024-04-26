@@ -7,6 +7,8 @@ import (
 	"sync/atomic"
 	"time"
 
+	"github.com/Emyrk/screeps-watcher/watch/profiling"
+	"github.com/Emyrk/screeps-watcher/watch/profiling/eluded"
 	"github.com/prometheus/client_golang/prometheus"
 	"github.com/rs/zerolog"
 )
@@ -19,10 +21,12 @@ type Collector struct {
 	constLabels prometheus.Labels
 
 	metricCount prometheus.Gauge
-	segmentSize prometheus.Gauge
+	segmentSize *prometheus.GaugeVec
 	lastUpdated prometheus.Gauge
 	metrics     atomic.Pointer[map[string][]prometheusMetric]
 	now         func() time.Time
+
+	profilePusher *profiling.PyroscopePusher
 }
 
 // New
@@ -33,13 +37,13 @@ func New(logger zerolog.Logger, namespace string, labels prometheus.Labels) *Col
 		namespace:   namespace,
 		constLabels: labels,
 		now:         time.Now,
-		segmentSize: prometheus.NewGauge(prometheus.GaugeOpts{
+		segmentSize: prometheus.NewGaugeVec(prometheus.GaugeOpts{
 			Namespace:   namespace,
 			Subsystem:   "watcher",
 			Name:        "segment_size",
 			Help:        "Size of the memory segment in bytes.",
 			ConstLabels: labels,
-		}),
+		}, []string{"type"}),
 		lastUpdated: prometheus.NewGauge(prometheus.GaugeOpts{
 			Namespace:   namespace,
 			Subsystem:   "watcher",
@@ -55,6 +59,15 @@ func New(logger zerolog.Logger, namespace string, labels prometheus.Labels) *Col
 			ConstLabels: labels,
 		}),
 	}
+}
+
+func (c *Collector) SupportsProfiling() bool {
+	return c.profilePusher != nil
+}
+
+func (c *Collector) WithPusher(pusher *profiling.PyroscopePusher) *Collector {
+	c.profilePusher = pusher
+	return c
 }
 
 func (c *Collector) SetNow(f func() time.Time) {
@@ -106,11 +119,13 @@ func (c *Collector) Collect(ch chan<- prometheus.Metric) {
 	}
 
 	ch <- c.lastUpdated
-	ch <- c.segmentSize
+	c.segmentSize.Collect(ch)
 	ch <- c.metricCount
 }
 
-func (c *Collector) SetMemory(memory json.RawMessage) (int, error) {
+func (c *Collector) SetMetricMemory(memory json.RawMessage) (int, error) {
+	c.segmentSize.WithLabelValues(fmt.Sprintf("metrics")).Set(float64(len(memory)))
+
 	metrics, err := memoryMetrics(memory)
 	if err != nil {
 		return 0, fmt.Errorf("read memory metrics: %w", err)
@@ -122,8 +137,22 @@ func (c *Collector) SetMemory(memory json.RawMessage) (int, error) {
 	}
 
 	c.metricCount.Set(float64(count))
-	c.segmentSize.Set(float64(len(memory)))
 	c.lastUpdated.Set(float64(c.now().Unix()))
 	c.metrics.Store(&metrics)
 	return count, nil
+}
+
+func (c *Collector) SetProfileMemory(name string, memory json.RawMessage) (int, error) {
+	c.segmentSize.WithLabelValues(fmt.Sprintf("profile")).Set(float64(len(memory)))
+
+	var profile []eluded.Profile
+	err := json.Unmarshal(memory, &profile)
+	if err != nil {
+		return -1, fmt.Errorf("failed to unmarshal memory profile: %w", err)
+	}
+
+	// convert to pprof
+	proto := profiling.New().Convert(profile)
+	err = c.profilePusher.Push(name, proto)
+	return len(proto.Sample), err
 }
