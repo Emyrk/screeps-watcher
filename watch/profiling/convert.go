@@ -87,11 +87,16 @@ func (c *Converter) ConvertSingle(elu eluded.Profile) {
 	c.recurseFunctions(elu, nil)
 }
 
-func (c *Converter) recurseFunctions(elu eluded.Profile, sample *profile.Sample) {
+// recurseFunctions will take an eluded.Profile which indicates a single function
+// call. The `parent` is the stack trace up to this point.
+//
+// DO NOT MUTATE 'parent'!
+func (c *Converter) recurseFunctions(elu eluded.Profile, parent *profile.Sample) {
 	fn, loc := c.function(elu.Key)
 	var _ = fn
+	var sample *profile.Sample
 	// If no sample exists, bootstrap the first sample.
-	if sample == nil {
+	if parent == nil {
 		sample = &profile.Sample{
 			Location: []*profile.Location{loc},
 			Value:    []int64{elu.SelfCostNano(), 1},
@@ -101,26 +106,25 @@ func (c *Converter) recurseFunctions(elu eluded.Profile, sample *profile.Sample)
 		}
 		c.protobuf.Sample = append(c.protobuf.Sample, sample)
 	} else {
+		// Copy the parent's existing stack trace so we can add ourselves, and
+		// make our own sample.
+		copyLoc := make([]*profile.Location, len(parent.Location))
+		copy(copyLoc, parent.Location)
+		copyLoc = prepend(loc, copyLoc)
+
 		// Add this function call to the existing sample.
 		// Prepend location, as location[0] is the leaf node.
-		sample.Location = prepend(loc, sample.Location)
+		sample = &profile.Sample{
+			Location: prepend(loc, copyLoc),
+			Value:    []int64{elu.SelfCostNano(), 1},
+		}
+		c.protobuf.Sample = append(c.protobuf.Sample, sample)
 	}
 
+	// For each child, pass our stack trace to them. They can extend it
+	// to add themselves.
 	for _, call := range elu.Children {
-		// TODO: I think this copy is excessive?
-		copyLoc := make([]*profile.Location, len(sample.Location))
-		copy(copyLoc, sample.Location)
-		// For each child, prepend the stack and the cost of the child.
-		callSample := &profile.Sample{
-			Location: copyLoc,
-			Value:    []int64{call.SelfCostNano(), 1},
-		}
-
-		// TODO: Should I put this minimum in?
-		//if call.SelfCostNano() > 10000 {
-		c.protobuf.Sample = append(c.protobuf.Sample, callSample)
-		//}
-		c.recurseFunctions(call, callSample)
+		c.recurseFunctions(call, sample)
 	}
 }
 
