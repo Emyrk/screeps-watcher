@@ -5,12 +5,15 @@ servers:
     # Choose either a password OR a token. Not both
     # password:
     # token:
+    markets:
+      - shard: shard3
+        resource_type: energy
     targets:
-        # Choose the shard and memory segment to scrape.
-        - segment: 77
-          shard: shard3
+      # Choose the shard and memory segment to scrape.
+      - metrics_segment: 77
+        shard: shard3
     # Websockets can export logs and CPU usage per account.
     # All shards are captured here.
     websocket_channels:
-        - console
-        - cpu
+      - console
+      - cpu

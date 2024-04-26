@@ -20,10 +20,10 @@ servers:
     # screeps-watcher-metrics library to export the data.
     targets:
       # Choose the shard and memory segment to scrape.
-      - segment: 77
+      - metrics_segment: 77
         shard: shard3
       # You can do multiple shards!
-      - segment: 77
+      - metrics_segment: 77
         shard: shard2
     websocket_channels:
       # When exporting logs, using the screeps-watcher-logs library will
