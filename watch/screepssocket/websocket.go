@@ -19,6 +19,15 @@ import (
 	"nhooyr.io/websocket"
 )
 
+type ConsoleLogMeta struct {
+	Shard string
+}
+
+// HandleConsoleLog takes new console log lines.
+// If this returns true, the console log line is intercepted
+// and not passed on to default handling.
+type HandleConsoleLog func(logger zerolog.Logger, meta ConsoleLogMeta, msg string) bool
+
 type ScreepsWebsocket struct {
 	URL        *url.URL
 	logger     zerolog.Logger
@@ -33,6 +42,9 @@ type ScreepsWebsocket struct {
 	// metrics
 	websocketCPU         prometheus.Gauge
 	websocketMemoryBytes prometheus.Gauge
+
+	// intercepts
+	consoleIntercept HandleConsoleLog
 }
 
 func New(ctx context.Context, URL *url.URL, logger zerolog.Logger, cli *http.Client, authMethod auth.Method, channels []string, labels prometheus.Labels) (*ScreepsWebsocket, error) {
@@ -74,6 +86,10 @@ func New(ctx context.Context, URL *url.URL, logger zerolog.Logger, cli *http.Cli
 	wbs.userID = userID
 
 	return wbs, nil
+}
+
+func (s *ScreepsWebsocket) InterceptConsoleLog(handle HandleConsoleLog) {
+	s.consoleIntercept = handle
 }
 
 func (s *ScreepsWebsocket) Collect(ch chan<- prometheus.Metric) {
@@ -363,7 +379,7 @@ func (s *Session) handleSliceMessage(ctx context.Context, msg []any) {
 				Str("channel_type", channelType).
 				Str("channel_name", channelName).
 				Str("user_id", userID).
-				Logger(), msg[1])
+				Logger(), msg[1], s.websocket.consoleIntercept)
 			return
 		}
 

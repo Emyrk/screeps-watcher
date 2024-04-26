@@ -5,12 +5,14 @@ import (
 	"fmt"
 	"net/http"
 	"net/url"
+	"strings"
 	"time"
 
 	"github.com/Emyrk/screeps-watcher/watch/auth"
 	"github.com/Emyrk/screeps-watcher/watch/market"
 	"github.com/Emyrk/screeps-watcher/watch/memcollector"
 	"github.com/Emyrk/screeps-watcher/watch/profiling"
+	"github.com/Emyrk/screeps-watcher/watch/profiling/eluded"
 	"github.com/Emyrk/screeps-watcher/watch/screepssocket"
 	"github.com/prometheus/client_golang/prometheus"
 	"github.com/rs/zerolog"
@@ -99,6 +101,7 @@ type Watcher struct {
 	// For backing off rate limits
 	memorySegmentRateLimitUntil time.Time
 	marketApiRateLimitUntil     time.Time
+	pusher                      *profiling.PyroscopePusher
 }
 
 func New(global WatchConfig, opts WatcherOptions, logger zerolog.Logger) (*Watcher, error) {
@@ -195,6 +198,7 @@ func New(global WatchConfig, opts WatcherOptions, logger zerolog.Logger) (*Watch
 		marketInterval:    opts.MarketInterval,
 		reg:               reg,
 		websocketChannels: opts.WebsocketChannels,
+		pusher:            pusher,
 		logger: logger.With().
 			Str("username", opts.Username).
 			Str("server", opts.Name).
@@ -231,8 +235,39 @@ func (w *Watcher) WatchWebsocket(ctx context.Context) {
 		return
 	}
 
+	if w.pusher != nil {
+		sock.InterceptConsoleLog(w.interceptProfileLogs(w.Name))
+	}
+
 	go sock.Run(ctx)
 	w.reg.MustRegister(sock)
+}
+
+func (w *Watcher) interceptProfileLogs(server string) screepssocket.HandleConsoleLog {
+	return func(logger zerolog.Logger, meta screepssocket.ConsoleLogMeta, msg string) bool {
+		if strings.HasPrefix(msg, `<span id="profile-report"`) {
+			// TODO: Regex this instead
+			msg = strings.TrimPrefix(msg, `<span id="profile-report" data="`)
+			msg = strings.TrimSuffix(msg, `">Profiling Report</span>`)
+
+			profile, err := eluded.ParseProfileData([]byte(msg))
+			if err != nil {
+				logger.Error().Msg("failed to parse profile data from console")
+				return false
+			}
+
+			proto := profiling.New().Convert(profile)
+			err = w.pusher.Push(memcollector.ProfileName(server, meta.Shard), proto)
+			if err != nil {
+				logger.Error().Msg("failed to push profile data")
+				return true
+			}
+
+			logger.Info().Msg("profile data sent")
+			return true
+		}
+		return false
+	}
 }
 
 func (w *Watcher) WatchMetrics(ctx context.Context) {
@@ -398,7 +433,7 @@ func (w *Watcher) scrapeProfile(ctx context.Context, target *MemoryTargets) (int
 		return 0, size
 	}
 
-	count, err := target.collector.SetProfileMemory(fmt.Sprintf("screeps_%s_%s", target.serverName, target.Shard), data)
+	count, err := target.collector.SetProfileMemory(memcollector.ProfileName(target.serverName, target.Shard), data)
 	if err != nil {
 		logger.Error().
 			Err(err).

@@ -7,19 +7,18 @@ import (
 	"github.com/rs/zerolog"
 )
 
-func LogConsolePayload(logger zerolog.Logger, msg any) {
+func LogConsolePayload(logger zerolog.Logger, msg any, intercept HandleConsoleLog) {
 	payload, ok := msg.(map[string]any)
 	if !ok {
 		logger.Error().Any("msg", msg).Msg("handle console payload failed")
 		return
 	}
 
+	shard := "none"
 	if payload["shard"] != nil {
-		// Add the shard information to the logger.
-		logger = logger.With().Str("shard", payload["shard"].(string)).Logger()
-	} else {
-		logger = logger.With().Str("shard", "none").Logger()
+		shard = payload["shard"].(string)
 	}
+	logger = logger.With().Str("shard", shard).Logger()
 
 	// Log each message as output.
 	if payload["messages"] != nil {
@@ -30,6 +29,12 @@ func LogConsolePayload(logger zerolog.Logger, msg any) {
 				if ok {
 					for _, line := range lines {
 						lineStr, _ := line.(string)
+						if intercept != nil {
+							if intercept(logger, ConsoleLogMeta{Shard: shard}, lineStr) {
+								continue
+							}
+						}
+
 						lineStr = strings.TrimSpace(RemoveHTMLTags(lineStr))
 						lvl := zerolog.InfoLevel
 						if len(lineStr) > 3 {

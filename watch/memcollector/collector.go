@@ -155,3 +155,7 @@ func (c *Collector) SetProfileMemory(name string, memory json.RawMessage) (int, 
 	err = c.profilePusher.Push(name, proto)
 	return len(proto.Sample), err
 }
+
+func ProfileName(server, shard string) string {
+	return fmt.Sprintf("screeps_%s_%s", server, shard)
+}
