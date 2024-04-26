@@ -5,12 +5,11 @@ import (
 	"net/http"
 	_ "net/http/pprof"
 	"os"
-	pprof2 "runtime/pprof"
-	"time"
 
 	"github.com/Emyrk/screeps-watcher/watch"
 	"github.com/prometheus/client_golang/prometheus"
 	"github.com/prometheus/client_golang/prometheus/promhttp"
+	"github.com/rs/zerolog"
 	"gopkg.in/yaml.v3"
 
 	"github.com/coder/serpent"
@@ -37,32 +36,10 @@ func (r *Root) WatchCmd() *serpent.Command {
 			logger := r.Logger(i)
 			ctx := i.Context()
 
-			yamlData, err := os.ReadFile(configPath)
+			watchers, err := configureWatchers(configPath, logger)
 			if err != nil {
-				logger.Error().Err(err).Str("config", configPath).Msg("read config")
-				return fmt.Errorf("read config: %w", err)
+				return err
 			}
-
-			var config watch.WatchConfig
-			err = yaml.Unmarshal(yamlData, &config)
-			if err != nil {
-				logger.Error().Err(err).Str("config", configPath).Msg("unmarshal config")
-				return fmt.Errorf("unmarshal config: %w", err)
-			}
-
-			watchers := make([]*watch.Watcher, 0, len(config.Servers))
-			for _, server := range config.Servers {
-				watcher, err := watch.New(config, server, logger.With().Str("service", "watcher").Logger())
-				if err != nil {
-					logger.Error().Err(err).Str("server", server.Name).Msg("new watcher")
-					return fmt.Errorf("new watcher: %w", err)
-				}
-				watchers = append(watchers, watcher)
-			}
-
-			logger.Info().
-				Int("num_watchers", len(watchers)).
-				Msg("watching")
 
 			reg := prometheus.NewRegistry()
 			for _, watcher := range watchers {
@@ -78,12 +55,6 @@ func (r *Root) WatchCmd() *serpent.Command {
 				Registry: reg,
 			})
 
-			f, _ := os.OpenFile("output.pprof", os.O_CREATE|os.O_RDWR, 0666)
-			pprof2.StartCPUProfile(f)
-			go func() {
-				time.Sleep(time.Second * 10)
-				pprof2.StopCPUProfile()
-			}()
 			//go func() {
 			//	mux := http.NewServeMux()
 			//	mux.Handle("/debug/pprof/profile", http.HandlerFunc(pprof.Profile))
@@ -96,4 +67,35 @@ func (r *Root) WatchCmd() *serpent.Command {
 			return http.ListenAndServe(":2112", handler)
 		},
 	}
+}
+
+func configureWatchers(configPath string, logger zerolog.Logger) ([]*watch.Watcher, error) {
+	yamlData, err := os.ReadFile(configPath)
+	if err != nil {
+		logger.Error().Err(err).Str("config", configPath).Msg("read config")
+		return nil, fmt.Errorf("read config: %w", err)
+	}
+
+	var config watch.WatchConfig
+	err = yaml.Unmarshal(yamlData, &config)
+	if err != nil {
+		logger.Error().Err(err).Str("config", configPath).Msg("unmarshal config")
+		return nil, fmt.Errorf("unmarshal config: %w", err)
+	}
+
+	watchers := make([]*watch.Watcher, 0, len(config.Servers))
+	for _, server := range config.Servers {
+		watcher, err := watch.New(config, server, logger.With().Str("service", "watcher").Logger())
+		if err != nil {
+			logger.Error().Err(err).Str("server", server.Name).Msg("new watcher")
+			return nil, fmt.Errorf("new watcher: %w", err)
+		}
+		watchers = append(watchers, watcher)
+	}
+
+	logger.Info().
+		Int("num_watchers", len(watchers)).
+		Msg("watching")
+
+	return watchers, nil
 }

@@ -145,8 +145,7 @@ func (c *Collector) SetMetricMemory(memory json.RawMessage) (int, error) {
 func (c *Collector) SetProfileMemory(name string, memory json.RawMessage) (int, error) {
 	c.segmentSize.WithLabelValues(fmt.Sprintf("profile")).Set(float64(len(memory)))
 
-	var profile []eluded.Profile
-	err := json.Unmarshal(memory, &profile)
+	profile, err := eluded.ParseProfileData(memory)
 	if err != nil {
 		return -1, fmt.Errorf("failed to unmarshal memory profile: %w", err)
 	}

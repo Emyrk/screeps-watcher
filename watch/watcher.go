@@ -389,6 +389,7 @@ func (w *Watcher) scrapeProfile(ctx context.Context, target *MemoryTargets) (int
 
 	if !target.collector.SupportsProfiling() {
 		logger.Error().Msg("profile collector not supported")
+		return -1, -1
 	}
 
 	data, size, err := w.MemorySegment(ctx, target.ProfileSegment(), target.Shard)

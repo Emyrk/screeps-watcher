@@ -35,7 +35,7 @@ func New() *Converter {
 			DropFrames: "",
 			KeepFrames: "",
 
-			// TODO: @emyrk get a more accurate timestamp from the client.
+			// These get updated
 			TimeNanos:     time.Now().UnixNano(),
 			DurationNanos: 0,
 
@@ -89,7 +89,8 @@ func (c *Converter) ConvertSingle(elu eluded.Profile) {
 }
 
 func (c *Converter) recurseFunctions(elu eluded.Profile, sample *profile.Sample) {
-	_, loc := c.function(elu.Key)
+	fn, loc := c.function(elu.Key)
+	var _ = fn
 	// If no sample exists, bootstrap the first sample.
 	if sample == nil {
 		sample = &profile.Sample{
@@ -108,11 +109,13 @@ func (c *Converter) recurseFunctions(elu eluded.Profile, sample *profile.Sample)
 
 	for _, call := range elu.Children {
 		// For each child, prepend the stack and the cost of the child.
-		_, callLoc := c.function(call.Key)
+		fn, callLoc := c.function(call.Key)
 		callSample := &profile.Sample{
 			Location: prepend(callLoc, sample.Location),
 			Value:    []int64{call.SelfCostNano(), 1},
 		}
+		var _ = fn
+
 		if call.SelfCostNano() > 10000 {
 			c.protobuf.Sample = append(c.protobuf.Sample, callSample)
 		}
