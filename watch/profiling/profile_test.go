@@ -24,15 +24,9 @@ func TestEluded(t *testing.T) {
 	var _ = converted
 	os.WriteFile("created.pprof", data, 0644)
 	//fmt.Print(converted.String())
-
+	//
 	for _, sample := range converted.Sample {
-		str := "| "
-		for i := len(sample.Location) - 1; i >= 0; i-- {
-			loc := sample.Location[i]
-			f := profiling.FindFunction(converted, loc.ID)
-			str += " |> " + f.Name
-		}
-		fmt.Println(str)
+		fmt.Println(profiling.PrintCallFlow(converted, sample))
 	}
 
 	_, err = profile.ParseData(data)

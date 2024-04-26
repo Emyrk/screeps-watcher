@@ -110,7 +110,6 @@ func (c *Converter) recurseFunctions(elu eluded.Profile, parent *profile.Sample)
 		// make our own sample.
 		copyLoc := make([]*profile.Location, len(parent.Location))
 		copy(copyLoc, parent.Location)
-		copyLoc = prepend(loc, copyLoc)
 
 		// Add this function call to the existing sample.
 		// Prepend location, as location[0] is the leaf node.
@@ -118,6 +117,7 @@ func (c *Converter) recurseFunctions(elu eluded.Profile, parent *profile.Sample)
 			Location: prepend(loc, copyLoc),
 			Value:    []int64{elu.SelfCostNano(), 1},
 		}
+
 		c.protobuf.Sample = append(c.protobuf.Sample, sample)
 	}
 
@@ -167,6 +167,16 @@ func (c *Converter) function(name string) (*profile.Function, *profile.Location)
 
 func prepend[T any](x T, s []T) []T {
 	return append([]T{x}, s...)
+}
+
+func PrintCallFlow(p *profile.Profile, sample *profile.Sample) string {
+	str := "| "
+	for i := len(sample.Location) - 1; i >= 0; i-- {
+		loc := sample.Location[i]
+		f := FindFunction(p, loc.ID)
+		str += " |> " + f.Name
+	}
+	return str
 }
 
 func FindFunction(p *profile.Profile, id uint64) *profile.Function {
