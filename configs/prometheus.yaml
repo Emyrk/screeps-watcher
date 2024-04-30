@@ -17,3 +17,11 @@ scrape_configs:
     scrape_interval: 15s
     static_configs:
       - targets: ["watcher:2112"]
+  - job_name: "loki"
+    scrape_interval: 15s
+    static_configs:
+      - targets: ["loki:3100/metrics"]
+  - job_name: "promtail"
+    scrape_interval: 15s
+    static_configs:
+      - targets: [ "promtail:9080/metrics" ]
