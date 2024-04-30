@@ -20,8 +20,8 @@ scrape_configs:
   - job_name: "loki"
     scrape_interval: 15s
     static_configs:
-      - targets: ["loki:3100/metrics"]
+      - targets: ["loki:3100"]
   - job_name: "promtail"
     scrape_interval: 15s
     static_configs:
-      - targets: [ "promtail:9080/metrics" ]
+      - targets: [ "promtail:9080" ]
