@@ -54,6 +54,123 @@ func (w *Watcher) Market(ctx context.Context, resourceType string, shard string)
 	return respData, nil
 }
 
+func (w *Watcher) RoomObjects(ctx context.Context, room string, shard string) (json.RawMessage, error) {
+	vals := url.Values{
+		"room":  []string{room},
+		"shard": []string{shard},
+	}
+
+	req, err := http.NewRequestWithContext(ctx, "GET", w.URL.ResolveReference(&url.URL{
+		Path:     "/api/game/room-objects",
+		RawQuery: vals.Encode(),
+	}).String(), nil)
+	if err != nil {
+		return nil, fmt.Errorf("new request: %w", err)
+	}
+
+	req.Header.Set("Content-Type", "application/json")
+	resp, err := w.AuthMethod.AuthenticatedRequest(w.cli, req)
+	if err != nil {
+		return nil, fmt.Errorf("do request: %w", err)
+	}
+	defer resp.Body.Close()
+
+	if resp.StatusCode == http.StatusTooManyRequests {
+		w.memorySegmentRateLimitUntil = w.rateLimtResetAt(resp)
+		return nil, fmt.Errorf("rate limit hit")
+	}
+
+	if resp.StatusCode != 200 {
+		return nil, fmt.Errorf("non-200 status code: %d", resp.StatusCode)
+	}
+
+	respData, err := io.ReadAll(resp.Body)
+	if err != nil {
+		return nil, fmt.Errorf("read all: %w", err)
+	}
+
+	return respData, nil
+}
+
+func (w *Watcher) RoomOverview(ctx context.Context, room string, shard string) (json.RawMessage, error) {
+	vals := url.Values{
+		"interval": []string{"1"},
+		"room":     []string{room},
+		"shard":    []string{shard},
+	}
+
+	req, err := http.NewRequestWithContext(ctx, "GET", w.URL.ResolveReference(&url.URL{
+		Path:     "/api/game/room-overview",
+		RawQuery: vals.Encode(),
+	}).String(), nil)
+	if err != nil {
+		return nil, fmt.Errorf("new request: %w", err)
+	}
+
+	req.Header.Set("Content-Type", "application/json")
+	resp, err := w.AuthMethod.AuthenticatedRequest(w.cli, req)
+	if err != nil {
+		return nil, fmt.Errorf("do request: %w", err)
+	}
+	defer resp.Body.Close()
+
+	if resp.StatusCode == http.StatusTooManyRequests {
+		w.memorySegmentRateLimitUntil = w.rateLimtResetAt(resp)
+		return nil, fmt.Errorf("rate limit hit")
+	}
+
+	if resp.StatusCode != 200 {
+		return nil, fmt.Errorf("non-200 status code: %d", resp.StatusCode)
+	}
+
+	respData, err := io.ReadAll(resp.Body)
+	if err != nil {
+		return nil, fmt.Errorf("read all: %w", err)
+	}
+
+	return respData, nil
+}
+
+func (w *Watcher) RoomTerrain(ctx context.Context, room string, shard string) (json.RawMessage, error) {
+	//https://screeps.com/api/game/room-terrain?encoded=1&room=E11S53&shard=shard3
+	vals := url.Values{
+		"encoded": []string{"1"},
+		"room":    []string{room},
+		"shard":   []string{shard},
+	}
+
+	req, err := http.NewRequestWithContext(ctx, "GET", w.URL.ResolveReference(&url.URL{
+		Path:     "/api/game/room-terrain",
+		RawQuery: vals.Encode(),
+	}).String(), nil)
+	if err != nil {
+		return nil, fmt.Errorf("new request: %w", err)
+	}
+
+	req.Header.Set("Content-Type", "application/json")
+	resp, err := w.AuthMethod.AuthenticatedRequest(w.cli, req)
+	if err != nil {
+		return nil, fmt.Errorf("do request: %w", err)
+	}
+	defer resp.Body.Close()
+
+	if resp.StatusCode == http.StatusTooManyRequests {
+		w.memorySegmentRateLimitUntil = w.rateLimtResetAt(resp)
+		return nil, fmt.Errorf("rate limit hit")
+	}
+
+	if resp.StatusCode != 200 {
+		return nil, fmt.Errorf("non-200 status code: %d", resp.StatusCode)
+	}
+
+	respData, err := io.ReadAll(resp.Body)
+	if err != nil {
+		return nil, fmt.Errorf("read all: %w", err)
+	}
+
+	return respData, nil
+}
+
 // https://github.com/screepers/node-screeps-api/blob/master/docs/Endpoints.md
 func (w *Watcher) MemorySegment(ctx context.Context, id int, shard string) (json.RawMessage, int, error) {
 	vals := url.Values{

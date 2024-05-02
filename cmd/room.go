@@ -1,28 +1,53 @@
 package cmd
 
 import (
+	"context"
 	"encoding/json"
 	"fmt"
+
+	"github.com/Emyrk/screeps-watcher/watch"
 
 	"github.com/coder/serpent"
 )
 
-func (r *Root) rooms() *serpent.Command {
+func (r *Root) roomTerrain() *serpent.Command {
+	cmd := r.rooms(func(w *watch.Watcher) func(ctx context.Context, room string, shard string) (json.RawMessage, error) {
+		return w.RoomTerrain
+	})
+
+	cmd.Use = "room-terrain"
+	cmd.Short = "Fetch room terrain data."
+	return cmd
+}
+
+func (r *Root) roomObjects() *serpent.Command {
+	cmd := r.rooms(func(w *watch.Watcher) func(ctx context.Context, room string, shard string) (json.RawMessage, error) {
+		return w.RoomTerrain
+	})
+
+	cmd.Use = "room-objects"
+	cmd.Short = "Fetch room objects data."
+	return cmd
+}
+
+type roomAPICall = func(w *watch.Watcher) func(ctx context.Context, room string, shard string) (json.RawMessage, error)
+
+func (r *Root) rooms(do roomAPICall) *serpent.Command {
 	var (
-		cliOpts = new(cliWatcherConfig)
-		server  string
-		segment int64
+		cliOpts = new(cliWatcherConfig).SingleWatcher()
 		shard   string
+		room    string
 		pretty  bool
 	)
 	cmd := &serpent.Command{
-		Use: "room",
+		Use: "",
 		Options: serpent.OptionSet{
 			serpent.Option{
 				Name:        "room",
 				Description: "Room name to download.",
 				Required:    true,
 				Flag:        "room",
+				Value:       serpent.StringOf(&room),
 			},
 			serpent.Option{
 				Name:        "pretty",
@@ -30,13 +55,6 @@ func (r *Root) rooms() *serpent.Command {
 				Required:    false,
 				Flag:        "pretty",
 				Value:       serpent.BoolOf(&pretty),
-			},
-			serpent.Option{
-				Name:        "server",
-				Description: "Which server to pull from.",
-				Required:    true,
-				Flag:        "server",
-				Value:       serpent.StringOf(&server),
 			},
 			serpent.Option{
 				Name:        "shard",
@@ -55,29 +73,25 @@ func (r *Root) rooms() *serpent.Command {
 				return err
 			}
 
-			for _, watcher := range watchers {
-				if watcher.Name != server {
-					continue
-				}
-				if len(watcher.MemorySegments) == 1 {
-					shard = watcher.MemorySegments[0].Shard
-				}
-				if shard == "" {
-					return fmt.Errorf("must choose a --shard")
-				}
-				data, _, err := watcher.MemorySegment(ctx, int(segment), shard)
-				if err != nil {
-					return fmt.Errorf("fetch memory segment: %w", err)
-				}
+			watcher := watchers[0]
 
-				if pretty {
-					data, _ = json.MarshalIndent(data, "", "\t")
-				}
-				fmt.Println(string(data))
-				return nil
+			if shard == "" && len(watcher.MemorySegments) == 1 {
+				shard = watcher.MemorySegments[0].Shard
+			}
+			if shard == "" {
+				return fmt.Errorf("must choose a --shard")
 			}
 
-			return fmt.Errorf("not found")
+			data, err := do(watcher)(ctx, room, shard)
+			if err != nil {
+				return fmt.Errorf("fetch room terrain: %w", err)
+			}
+
+			if pretty {
+				data, _ = json.MarshalIndent(data, "", "\t")
+			}
+			fmt.Println(string(data))
+			return nil
 		},
 	}
 

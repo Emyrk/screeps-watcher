@@ -59,6 +59,8 @@ func (r *Root) RootCmd() *serpent.Command {
 		versionCmd(),
 		r.WatchCmd(),
 		r.segment(),
+		r.roomTerrain(),
+		r.roomObjects(),
 	)
 
 	return cmd

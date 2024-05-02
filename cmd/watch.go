@@ -5,6 +5,7 @@ import (
 	"net/http"
 	_ "net/http/pprof"
 	"os"
+	"strings"
 
 	"github.com/Emyrk/screeps-watcher/watch"
 	"github.com/prometheus/client_golang/prometheus"
@@ -110,15 +111,7 @@ func (c *cliWatcherConfig) Attach(cmd *serpent.Command) {
 				Default:       "",
 				Value:         serpent.StringOf(&c.SelectServer),
 			},
-			serpent.Option{
-				Name:          "shard",
-				Description:   "Which shard.",
-				Required:      false,
-				Flag:          "shard",
-				FlagShorthand: "",
-				Default:       "",
-				Value:         serpent.StringOf(&c.SelectShard),
-			})
+		)
 	}
 }
 
@@ -169,10 +162,13 @@ func configureWatchers(opts *cliWatcherConfig, logger zerolog.Logger) ([]*watch.
 	}
 
 	if opts.single {
+		if len(watchers) == 0 {
+			return nil, fmt.Errorf("no watchers found")
+		}
 		if opts.SelectServer != "" {
-			for _, w := range watchers {
-				if w.Name == opts.SelectServer {
-					watchers = []*watch.Watcher{w}
+			for i, w := range watchers {
+				if strings.EqualFold(w.Name, opts.SelectServer) {
+					watchers = []*watch.Watcher{watchers[i]}
 					break
 				}
 			}

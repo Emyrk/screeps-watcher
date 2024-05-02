@@ -10,7 +10,6 @@ import (
 func (r *Root) segment() *serpent.Command {
 	var (
 		cliOpts = new(cliWatcherConfig).SingleWatcher()
-		server  string
 		segment int64
 		shard   string
 		pretty  bool
@@ -36,6 +35,13 @@ func (r *Root) segment() *serpent.Command {
 				Default:       "",
 				Value:         serpent.Int64Of(&segment),
 			},
+			serpent.Option{
+				Name:        "shard",
+				Description: "Which shard.",
+				Required:    false,
+				Flag:        "shard",
+				Value:       serpent.StringOf(&shard),
+			},
 		},
 		Handler: func(i *serpent.Invocation) error {
 			logger := r.Logger(i)
@@ -47,9 +53,6 @@ func (r *Root) segment() *serpent.Command {
 			}
 
 			watcher := watchers[0]
-			if watcher.Name != server {
-				return fmt.Errorf("not found")
-			}
 
 			if len(watcher.MemorySegments) == 1 {
 				shard = watcher.MemorySegments[0].Shard
