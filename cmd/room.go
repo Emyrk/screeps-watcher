@@ -22,7 +22,7 @@ func (r *Root) roomTerrain() *serpent.Command {
 
 func (r *Root) roomObjects() *serpent.Command {
 	cmd := r.rooms(func(w *watch.Watcher) func(ctx context.Context, room string, shard string) (json.RawMessage, error) {
-		return w.RoomTerrain
+		return w.RoomObjects
 	})
 
 	cmd.Use = "room-objects"
