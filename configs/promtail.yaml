@@ -30,6 +30,10 @@ scrape_configs:
       - json:
           expressions:
             server: server
+            message: message
       - drop:
           source: "server"
           value: "pyroscope_pusher"
+      - drop:
+          source: "message"
+          value: "profile data sent"
