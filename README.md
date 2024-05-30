@@ -2,7 +2,7 @@
 
 ![Example](./images/grafana_example.png)
 
-- [Demo](https://snapshots.raintank.io/dashboard/snapshot/Mk6wQM764uJKnMINsHduIrIrDtKUqO4I?orgId=0)
+- [Demo](https://snapshots.raintank.io/dashboard/snapshot/XYtrPsVcPoIz6jdREl8J3gPg6zl0sUgV)
 
 Screeps watcher is a collection of instrumentation and monitoring tools for the game Screeps. It is designed to be used in conjunction with supporting Screep libraries to export data via memory segments.
 
