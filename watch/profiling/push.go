@@ -35,7 +35,7 @@ func NewPusher(address string, logger zerolog.Logger) (*PyroscopePusher, error) 
 		TenantID:          "",
 		HTTPHeaders:       nil,
 		Threads:           1,
-		Address:           "http://192.168.86.122:4040/",
+		Address:           address,
 		Timeout:           time.Second * 20,
 		Logger:            &zerologWrapper{logger: logger},
 	})
