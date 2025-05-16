@@ -181,6 +181,8 @@ func configureWatchers(opts *cliWatcherConfig, logger zerolog.Logger) ([]*watch.
 	}
 
 	logger.Info().
+		Str("config_path", opts.ConfigPath).
+		Str("pyroscope", config.Pyroscope.Address).
 		Int("num_watchers", len(watchers)).
 		Msg("watching")
 
